@@ -1,0 +1,11 @@
+baazaar_media:
+    resource: "@BaazaarMediaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+baazaar_user:
+    resource: "@BaazaarUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+baazaar_baazaar:
+    resource: "@BaazaarBaazaarBundle/Resources/config/routing.yml"
+    prefix:   /

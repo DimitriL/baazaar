@@ -1,0 +1,31 @@
+{% extends 'BaazaarBaazaarBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+         <div class="medium-3 columns">3 columns</div>
+         <div class="medium-9 columns">
+            <h2>{{ ad.title }}</h2>
+            <p>{{ ad.body }}</p>
+            
+            <i>Author: {{ad.owner.username}}</i>
+            <div>
+                {% for category  in ad.categories %}
+                    <span class="category">Category: {{category.title}}</span>
+                {% endfor %}
+            </div>
+            
+            <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 clearing-thumbs" data-clearing>
+                {% for file in  ad.files %}
+                    <li><a href="{{asset('uploads/' ~ file.path) }}"><img src="{{asset('uploads/' ~ file.path) }}" /></a></li>
+                {% endfor %}
+            </ul>
+            
+            {% if app.user == ad.owner %}
+                <a class="button" href="{{ path('baazaar_baazaar_ad_edit', {'id': ad.id}) }}">edit</a>
+            {% endif %}
+            {% if app.user == ad.owner %}
+                <a class="button" href="{{ path('baazaar_baazaar_ad_delete', {'id': ad.id}) }}">delete</a>
+            {% endif %}
+         </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'BaazaarBaazaarBundle::layout.html.twig' %}
+
+{% block title %}Create ad{% endblock%}
+
+{% block body %}
+    <div class="row">
+      {{ form_start(form) }}
+         {{ form_errors(form) }}
+
+         {{ form_rest(form) }}
+         <input type="submit" value="Submit">
+      {{ form_end(form) }}
+    </div>
+{% endblock %}

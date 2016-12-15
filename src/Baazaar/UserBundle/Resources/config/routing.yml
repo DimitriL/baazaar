@@ -1,0 +1,12 @@
+baazaar_user_login:
+    path:     /user/login
+    defaults: { _controller: BaazaarUserBundle:Security:login }
+baazaar_user_login_check:
+    path:     /user/login/check
+    defaults: { _controller: BaazaarUserBundle:Security:loginCheck }
+baazaar_user_logout:
+    path:     /user/logout
+    defaults: { _controller: BaazaarUserBundle:Security:logout }
+baazaar_user_register:
+    path:     /user/register
+    defaults: { _controller: BaazaarUserBundle:Register:register }

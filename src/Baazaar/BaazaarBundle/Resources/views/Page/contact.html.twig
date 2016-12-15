@@ -1,0 +1,26 @@
+{% extends 'BaazaarBaazaarBundle::layout.html.twig' %}
+
+{% block title %}Contact{% endblock%}
+
+{% block body %}
+    <div class="row">
+        <div class="medium-3 columns">
+            {{ render( controller('BaazaarBaazaarBundle:Page:sidebar')) }}
+        </div>
+        <div class="medium-9 columns">
+             <h1>Contact</h1>
+             {% for flashMessage in app.session.flashbag.get('baazaar-notice') %}
+                <div class="flash-notice">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+
+            {{ form_start(form) }}
+               {{ form_errors(form) }}
+
+               {{ form_rest(form) }}
+               <input type="submit" value="Submit">
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

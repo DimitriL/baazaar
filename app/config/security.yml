@@ -1,0 +1,36 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    encoders:
+         Baazaar\UserBundle\Entity\User:
+            algorithm: bcrypt
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        our_database_users:
+            entity:   { class: BaazaarUserBundle:User }
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        login_firewall:
+            pattern:   ^/user/login$
+            anonymous: ~
+        # enables authentication for action paths
+        secured_area:
+            #pattern to match to call login form
+            anonymous: ~
+            http_basic: ~
+            form_login:
+                login_path: /user/login
+                check_path: /user/login/check
+            logout:
+                path: /user/logout
+                target: /
+        main:
+            anonymous: ~
+    access_control:
+        - { path: ^/user/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }

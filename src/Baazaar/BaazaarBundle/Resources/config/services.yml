@@ -1,0 +1,6 @@
+services:
+  baazaar.form.type.view:
+        class: Baazaar\BaazaarBundle\Form\AdType
+        arguments: [ "@doctrine" ]
+        tags:
+            - { name: form.type, alias: form_ad }

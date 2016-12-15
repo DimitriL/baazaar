@@ -1,0 +1,18 @@
+{% extends 'BaazaarBaazaarBundle::layout.html.twig' %}
+
+{% block title %}Create media{% endblock%}
+
+{% block body %}
+    <div class="row">
+        <form action="{{ path('baazaar_media_create' ) }}" method="post" {{ form_enctype(form) }} class="media-create" >
+            {{ form_row(form.filename) }}
+            {{ form_row(form.file) }}  
+            
+            {{form_rest(form)}}
+
+            <p>
+                <input class="button" type="submit" value="Submit">
+            </p>
+        </form>
+    </div>
+{% endblock %}

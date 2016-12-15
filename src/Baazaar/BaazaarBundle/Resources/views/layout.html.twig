@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="{{ asset('bundles/baazaarbaazaar/css/normalize.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('bundles/baazaarbaazaar/css/foundation.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('bundles/baazaarbaazaar/css/style.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <!-- navigation -->
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="{{ path('baazaar_baazaar_homepage') }}">home</a></h1>
+                </li>
+                 <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
+            <section class="top-bar-section">
+                <ul class="right">
+                    <li>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                           <a class="link" href="{{ path('baazaar_user_logout') }}">Logout</a>
+                        {% else %}
+                            <a class="link" href="{{ path('baazaar_user_login') }}">Login</a>
+                        {% endif %}
+                    </li>
+                </ul>
+                <ul class="left">
+                    <li><a href="{{ path('baazaar_baazaar_about') }}">about</a></li>
+                    <li><a href="{{ path('baazaar_baazaar_contact') }}">contact</a></li>
+
+                </ul>
+            </section>
+        </nav>
+
+        <div class="wrapper">
+            {% block body %}{% endblock %}
+        </div>
+
+        {% block javascripts %}
+          <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>-->
+            <!--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
+            <!--<script src="{{ asset('bundles/baazaarbaazaar/js/foundation.min.js') }}"></script>-->
+            <script>
+              //  $(document).foundation();
+            </script>
+        {% endblock %}
+    </body>
+</html>

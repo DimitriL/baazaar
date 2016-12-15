@@ -1,0 +1,32 @@
+{% extends 'BaazaarBaazaarBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        {% for flashMessage in app.session.flashbag.get('notice-login') %}
+            <div class="flash-notice">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        <div class="medium-12 columns">
+            {% if error %}
+                <div>{{ error.message|trans }}</div>
+            {% endif %}
+
+            <form action="{{ path('baazaar_user_login_check') }}" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="_password" />
+
+                {#
+                    If you want to control the URL the user
+                    is redirected to on success (more details below)
+                    <input type="hidden" name="_target_path" value="/account" />
+                #}
+
+                <button type="submit">login</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

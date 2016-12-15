@@ -1,0 +1,9 @@
+{% extends 'BaazaarBaazaarBundle::layout.html.twig' %}
+
+{% block title %}Register{% endblock%}
+
+{% block body %}
+    <div class="row">
+        {% include 'BaazaarUserBundle:Security:registerForm.html.twig' with { 'form': form } %}
+    </div>
+{% endblock %}

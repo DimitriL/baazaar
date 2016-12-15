@@ -1,0 +1,4 @@
+services:
+#    baazaar_media.example:
+#        class: Baazaar\MediaBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

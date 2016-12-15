@@ -1,0 +1,30 @@
+baazaar_baazaar_homepage:
+    path:     /
+    defaults: { _controller: BaazaarBaazaarBundle:Page:index }
+baazaar_baazaar_about:
+    path:     /about
+    defaults: { _controller: BaazaarBaazaarBundle:Page:about }
+baazaar_baazaar_contact:
+    path:     /contact
+    defaults: { _controller: BaazaarBaazaarBundle:Page:contact }
+baazaar_baazaar_ad_create:
+    path: /ad/create
+    defaults: { _controller: BaazaarBaazaarBundle:Ad:create }
+baazaar_baazaar_ad_edit:
+    path: /ad/{id}/edit
+    defaults: { _controller: BaazaarBaazaarBundle:Ad:edit }
+baazaar_baazaar_ad_delete:
+    path: /ad/{id}/delete
+    defaults: { _controller: BaazaarBaazaarBundle:Ad:delete }
+baazaar_baazaar_ad_update:
+    path: /ad/{id}/update
+    defaults: { _controller: BaazaarBaazaarBundle:Ad:update }
+baazaar_baazaar_ad:
+    path: /ad/{slug}
+    defaults: { _controller: BaazaarBaazaarBundle:Ad:index }
+baazaar_baazaar_category:
+    path: /category/{id}
+    defaults: { _controller: BaazaarBaazaarBundle:Category:show }
+baazaar_baazaar_create_categories:
+    path: /category/create/categories
+    defaults: { _controller: BaazaarBaazaarBundle:Category:createCategories }
