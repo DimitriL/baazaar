@@ -1,0 +1,38 @@
+fos_elastica:
+    clients:
+        default:
+            host: localhost
+            port: 9200
+    indexes:
+        search:
+            finder: ~
+            client: default
+            types:
+                ads:
+                    mappings:
+                        id:
+                            type: integer
+                        title: ~
+                        categories:
+                            type: nested
+                            properties :
+                              id:
+                                type: integer
+                              title: ~
+                    persistence:
+                        driver: orm
+                        model: Baazaar\BaazaarBundle\Entity\Ad
+                        finder: ~
+                        provider: ~
+                        listener: ~
+                categories:
+                    mappings:
+                        id:
+                          type: integer
+                        title: ~
+                    persistence:
+                        driver: orm
+                        model: Baazaar\BaazaarBundle\Entity\Category
+                        finder: ~
+                        provider: ~
+                        listener: ~

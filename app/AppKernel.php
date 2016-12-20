@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Baazaar\BaazaarBundle\BaazaarBaazaarBundle(),
             new Baazaar\MediaBundle\BaazaarMediaBundle(),
             new Baazaar\UserBundle\BaazaarUserBundle(),
+            new FOS\ElasticaBundle\FOSElasticaBundle()
 
         ];
 
