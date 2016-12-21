@@ -2,16 +2,8 @@
 
 {% block body %}
     <div class="row">
-         <div class="medium-12 columns">
+         <div class="medium-4 columns">
             <h2>{{ ad.title }}</h2>
-            <p>{{ ad.body }}</p>
-
-            <i>Author: {{ad.owner.username}}</i>
-            <div>
-                {% for category  in ad.categories %}
-                    <span class="category">Category: {{category.title}}</span>
-                {% endfor %}
-            </div>
 
             <ul class="small-block-grid-2 medium-block-grid-2 large-block-grid-2 clearing-thumbs" data-clearing>
                 {% for file in  ad.files %}
@@ -25,6 +17,73 @@
             {% if app.user == ad.owner %}
                 <a class="button" href="{{ path('baazaar_baazaar_ad_delete', {'id': ad.id}) }}">delete</a>
             {% endif %}
+         </div>
+         <div class="medium-5 columns">
+           <!-- ad deatils block -->
+            <div class="block ad--details clearfix">
+              <div class="block--header">
+                Details
+              </div>
+              <div class="block--content ">
+                  <p>{{ ad.body }}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat rhoncus mi. Pellentesque semper iaculis velit, sit amet aliquam urna vestibulum venenatis. Nunc nisl justo, pretium non tempor vitae, feugiat non erat. Pellentesque sit amet sem lorem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla lacinia mi tempus lobortis congue. Maecenas sed interdum enim. Pellentesque suscipit finibus justo varius aliquam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam sed cursus ipsum. Mauris sollicitudin tincidunt mollis. Nam id blandit leo, id accumsan odio. Nam faucibus, turpis eu tempus volutpat, erat magna faucibus turpis, et iaculis purus risus posuere nulla. Vivamus laoreet, ex a ultricies venenatis,
+                    augue magna sodales felis, at congue dui ante quis orci. Etiam eu eros et enim vulputate lobortis. Cras feugiat congue magna quis suscipit.
+                  </p>
+                  <ul>
+                      <li><i class="fi-euro medium"></i>&nbsp;35</li>
+                      <li><i class="fi-marker medium"></i>&nbsp;Antwerpen</li>
+                      {% for category  in ad.categories %}
+                            <li><i class="fi-filter medium"></i>&nbsp;{{category.title}}</li>
+                      {% endfor %}
+
+                      <li><i class="fi-check medium"></i>&nbsp;Gebruikt (staat van het object)</li>
+                      <li><i class="fi-arrows-in medium"></i>&nbsp;Enkel ophalen</li>
+                      <li></li>
+                  </ul>
+              </div>
+                <div class="block--footer">
+
+                </div>
+            </div>
+         </div>
+         <div class="medium-3 columns">
+           <div class="row">
+             <!-- social buttons block -->
+              <div class="block social-buttons clearfix">
+                <div class="block--header">
+                    Dit zoekertje delen met vrienden
+                </div>
+                <div class="block--content ">
+                    <ul>
+                        <li><i class="fi-social-facebook large"></i></li>
+                        <li><i class="fi-social-twitter large"></i></li>
+                        <li><i class="fi-mail large"></i></li>
+                    </ul>
+                </div>
+                  <div class="block--footer">
+
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+                <!-- user info block -->
+                <div class="block user-info clearfix">
+                  <div class="block--header">
+                      Contacteer de verkoper
+                  </div>
+                  <div class="block--content ">
+                      <h4>{{ad.owner.username}}</h4>
+                      <ul>
+                          <li><a class="button" href="#"><i class="fi-telephone"></i>&nbsp;via telefoon</li></a></li>
+                          <li><a class="button" href="#"><i class="fi-mail"></i>&nbsp;via email</a></li>
+                          <li><a class="button" href="#"><i class="fi-comment"></i>&nbsp;via bericht op de website</a></li>
+                      </ul>
+                  </div>
+                  <div class="block--footer">
+
+                  </div>
+                </div>
+            </div>
          </div>
     </div>
 {% endblock %}

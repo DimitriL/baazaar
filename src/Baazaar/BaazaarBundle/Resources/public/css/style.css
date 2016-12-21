@@ -39,3 +39,27 @@ a:hover{color:#984B43;}
     .product__header--title a{color:#984B43;}
   .product__content{padding:0 15px;}
     .product__content ul{font-size:10pt;list-style-type: none;margin-left:0;}
+
+
+/*general block styling*/
+.block{border:1px solid #233237;margin-bottom:15px;border-radius: 10px 0 0 0;overflow:hidden;}
+  .block--header{background-color:#233237;padding:15px;color:#e2e2e2;}
+  .block--content{padding:15px 15px 15px 15px;}
+  .block--footer{padding:0 15px;}
+
+/*user info block*/
+.user-info .block--content ul{list-style-type: none;margin:0;padding:0;}
+  .user-info .block--content ul li a{margin-bottom:5px;width: 100%;text-align: left;}
+  .user-info .block--content ul li a i{margin-right:10px;}
+
+/*ad details block*/
+.ad--details ul{list-style-type: none;}
+.ad--details ul li i{display: inline-block;width:20px;margin-right: 10px;}
+
+/*social buttons*/
+.social-buttons ul{list-style-type: none;margin:0;padding:0;margin-top: -15px;}
+.social-buttons ul li{float:left;margin-right: 15px;}
+.social-buttons i{color:#984B43;}
+.social-buttons .large{font-size:30pt;}
+
+i.medium{font-size:16pt;}
