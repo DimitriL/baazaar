@@ -3,42 +3,70 @@
 {% block body %}
     <div class="row">
         <div class="medium-3 columns">
-            {{ render(controller('BaazaarBaazaarBundle:Page:sidebar')) }}
+              {{ render(controller('BaazaarBaazaarBundle:Page:sidebar')) }}
         </div>
-         <div class="medium-9 columns">
-                 <div class="search-results">
-                    {% for ad in ads%}
-                      <div class="media-object search-result">
-                          <div class="media-object-section">
-                            <div class="thumbnail">
-                              {% set firstFile = ad.files|first %}
-                              {% if firstFile %}
-                                  <img width="100px" src="{{asset('uploads/' ~ firstFile.path) }}" alt="first image">
-                              {% endif %}
-                            </div>
-                          </div>
-                        <div class="media-object-section main-section">
-                          <h4>
-                            <a href="{{path('baazaar_baazaar_ad', {'slug' : ad.slug } ) }}">
-                              {{ ad.title}}
-                            </a>
-                          </h4>
-                          <p>
-                            {{ad.body}}
-                          </p>
-                          <ul class="menu align-left search-result--details">
-                              <li>Geplaatst op: {{ ad.createdAt|date('d M Y - H:i')}}</li>
-                          </ul>
-                          <ul class="menu align-right search-result--details">
-                            {% set firstCategory = ad.categories|first %}
-                            {% if firstCategory %}
-                                <li><a href="{{ url('baazaar_baazaar_category', {'id': firstCategory.id} )}}"> {{firstCategory.title}} </a></li>
-                            {% endif %}
-                          </ul>
-                        </div>
-                    </div>
-                    {% endfor %}
+        <div class="medium-9 columns">
+            <div class="row">
+              <div class="medium-12 columns">
+                  Playstation > Playstation 1 > Final Fantasy
+              </div>
+            </div>
+            <div class="row">
+              <div class="medium-12 columns">
+                <div class="sorting">
+                  <h2>Sorteer op: </h2>
+                    <ul>
+                      <li>Prijs </li>
+                      <li>Datum</li>
+                      <li>Alfabetisch</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                 <div class="medium-12 columns">
+                         <div class="products--grid row">
+                            {% for ad in ads %}
+                              <div class="small-12 medium-6 large-3 columns {% if loop.last %}end {% endif %}">
+                                  <div class="product">
+                                    <div class="product__header">
+                                        <a href="{{path('baazaar_baazaar_ad', {'slug' : ad.slug } ) }}">
+                                          {% set firstFile = ad.files|first %}
+                                          {% if firstFile %}
+                                            <div class="product__header--media" style="background-image:url('{{asset('uploads/' ~ firstFile.path) }}')">
+                                          {% else %}
+                                            <div class="product__header--media" style="background-image:url('{{asset('uploads/' ~ firstFile.path) }}')">
+                                          {% endif %}
+                                          </div>
+                                        </a>
+
+                                      <h2 class="product__header--title">
+                                        <a href="{{path('baazaar_baazaar_ad', {'slug' : ad.slug } ) }}">
+                                          {{ ad.title}}
+                                        </a>
+                                      </h2>
+                                    </div>
+                                    <div class="product__content">
+                                      <ul>
+                                        <li>
+                                          <i class="fi-clock"></i>&nbsp;{{ ad.createdAt|date('d M Y - H:i')}}
+                                        </li>
+                                        {% set firstCategory = ad.categories|first %}
+                                        {% if firstCategory %}
+                                            <li><i class="fi-filter"></i>&nbsp;<a href="{{ url('baazaar_baazaar_category', {'id': firstCategory.id} )}}"> {{firstCategory.title}} </a></li>
+                                        {% endif %}
+                                      </ul>
+                                    </div>
+                                  </div>
+                              </div>
+                            {% endfor %}
+                         </div>
                  </div>
-         </div>
+            </div>
+        </div>
     </div>
+
+
+
+
 {% endblock %}
