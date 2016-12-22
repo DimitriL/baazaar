@@ -86,19 +86,41 @@ class User implements AdvancedUserInterface, Serializable, ParticipantInterface
     protected $ads;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Baazaar\BaazaarBundle\Entity\Ad")
+     */
+    protected $favorite_ads;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Baazaar\BaazaarBundle\Entity\AdReport", mappedBy="ad")
+     */
+    protected $ad_reports;
+
+    /**
      * @ORM\OneToMany(targetEntity="Baazaar\BaazaarBundle\Entity\Bid", mappedBy="user")
      */
     protected $bids;
-
 
     /**
      * @ORM\OneToMany(targetEntity="Baazaar\MediaBundle\Entity\File", mappedBy="owner")
      */
     protected $files;
 
+    /**
+     * Many User have Many Phonenumbers.
+     * @ORM\ManyToMany(targetEntity="Baazaar\BaazaarBundle\Entity\Review")
+     * @ORM\JoinTable(name="users_reviews",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="review_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    protected $reviews;
+
     public function __construct() {
         $this->ads = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->favorite_ads = new ArrayCollection();
+        $this->ad_reports = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
         $this->setSalt();
         $this->setIsActive(true);
     }
@@ -286,5 +308,189 @@ class User implements AdvancedUserInterface, Serializable, ParticipantInterface
 
     public function getFiles() {
         return $this->files;
+    }
+
+    /**
+     * Add ad
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Ad $ad
+     *
+     * @return User
+     */
+    public function addAd(\Baazaar\BaazaarBundle\Entity\Ad $ad)
+    {
+        $this->ads[] = $ad;
+
+        return $this;
+    }
+
+    /**
+     * Remove ad
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Ad $ad
+     */
+    public function removeAd(\Baazaar\BaazaarBundle\Entity\Ad $ad)
+    {
+        $this->ads->removeElement($ad);
+    }
+
+    /**
+     * Add favoriteAd
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Ad $favoriteAd
+     *
+     * @return User
+     */
+    public function addFavoriteAd(\Baazaar\BaazaarBundle\Entity\Ad $favoriteAd)
+    {
+        $this->favorite_ads[] = $favoriteAd;
+
+        return $this;
+    }
+
+    /**
+     * Remove favoriteAd
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Ad $favoriteAd
+     */
+    public function removeFavoriteAd(\Baazaar\BaazaarBundle\Entity\Ad $favoriteAd)
+    {
+        $this->favorite_ads->removeElement($favoriteAd);
+    }
+
+    /**
+     * Get favoriteAds
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFavoriteAds()
+    {
+        return $this->favorite_ads;
+    }
+
+    /**
+     * Add bid
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Bid $bid
+     *
+     * @return User
+     */
+    public function addBid(\Baazaar\BaazaarBundle\Entity\Bid $bid)
+    {
+        $this->bids[] = $bid;
+
+        return $this;
+    }
+
+    /**
+     * Remove bid
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Bid $bid
+     */
+    public function removeBid(\Baazaar\BaazaarBundle\Entity\Bid $bid)
+    {
+        $this->bids->removeElement($bid);
+    }
+
+    /**
+     * Get bids
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBids()
+    {
+        return $this->bids;
+    }
+
+    /**
+     * Add file
+     *
+     * @param \Baazaar\MediaBundle\Entity\File $file
+     *
+     * @return User
+     */
+    public function addFile(\Baazaar\MediaBundle\Entity\File $file)
+    {
+        $this->files[] = $file;
+
+        return $this;
+    }
+
+    /**
+     * Remove file
+     *
+     * @param \Baazaar\MediaBundle\Entity\File $file
+     */
+    public function removeFile(\Baazaar\MediaBundle\Entity\File $file)
+    {
+        $this->files->removeElement($file);
+    }
+
+    /**
+     * Add adReport
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\AdReport $adReport
+     *
+     * @return User
+     */
+    public function addAdReport(\Baazaar\BaazaarBundle\Entity\AdReport $adReport)
+    {
+        $this->ad_reports[] = $adReport;
+
+        return $this;
+    }
+
+    /**
+     * Remove adReport
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\AdReport $adReport
+     */
+    public function removeAdReport(\Baazaar\BaazaarBundle\Entity\AdReport $adReport)
+    {
+        $this->ad_reports->removeElement($adReport);
+    }
+
+    /**
+     * Get adReports
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdReports()
+    {
+        return $this->ad_reports;
+    }
+
+    /**
+     * Add review
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Review $review
+     *
+     * @return User
+     */
+    public function addReview(\Baazaar\BaazaarBundle\Entity\Review $review)
+    {
+        $this->reviews[] = $review;
+
+        return $this;
+    }
+
+    /**
+     * Remove review
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Review $review
+     */
+    public function removeReview(\Baazaar\BaazaarBundle\Entity\Review $review)
+    {
+        $this->reviews->removeElement($review);
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
     }
 }

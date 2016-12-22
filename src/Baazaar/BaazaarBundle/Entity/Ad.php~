@@ -81,6 +81,11 @@ class Ad
      */
     protected $bids;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Baazaar\BaazaarBundle\Entity\AdReport", mappedBy="ad")
+     */
+    protected $ad_reports;
+
 
     private $categoriesList;
     private $uploads;
@@ -88,6 +93,8 @@ class Ad
     public function __construct() {
         $this->files = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->bids = new ArrayCollection();
+        $this->ad_reports = new ArrayCollection();
 
         //uploads needs to be an array
         $this->uploads = Array();
@@ -317,5 +324,73 @@ class Ad
     public function setCategories($categories)
     {
         $this->categories = $categories;
+    }
+
+    /**
+     * Add bid
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Bid $bid
+     *
+     * @return Ad
+     */
+    public function addBid(\Baazaar\BaazaarBundle\Entity\Bid $bid)
+    {
+        $this->bids[] = $bid;
+
+        return $this;
+    }
+
+    /**
+     * Remove bid
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Bid $bid
+     */
+    public function removeBid(\Baazaar\BaazaarBundle\Entity\Bid $bid)
+    {
+        $this->bids->removeElement($bid);
+    }
+
+    /**
+     * Get bids
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBids()
+    {
+        return $this->bids;
+    }
+
+    /**
+     * Add adReport
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\AdReport $adReport
+     *
+     * @return Ad
+     */
+    public function addAdReport(\Baazaar\BaazaarBundle\Entity\AdReport $adReport)
+    {
+        $this->ad_reports[] = $adReport;
+
+        return $this;
+    }
+
+    /**
+     * Remove adReport
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\AdReport $adReport
+     */
+    public function removeAdReport(\Baazaar\BaazaarBundle\Entity\AdReport $adReport)
+    {
+        $this->ad_reports->removeElement($adReport);
+    }
+
+    /**
+     * Get adReports
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdReports()
+    {
+        return $this->ad_reports;
     }
 }

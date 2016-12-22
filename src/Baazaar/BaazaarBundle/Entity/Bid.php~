@@ -62,4 +62,100 @@ class Bid
     {
         return $this->id;
     }
+
+    /**
+     * Set amount
+     *
+     * @param string $amount
+     *
+     * @return Bid
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return string
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Bid
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Baazaar\UserBundle\Entity\User $user
+     *
+     * @return Bid
+     */
+    public function setUser(\Baazaar\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Baazaar\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set ad
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Ad $ad
+     *
+     * @return Bid
+     */
+    public function setAd(\Baazaar\BaazaarBundle\Entity\Ad $ad = null)
+    {
+        $this->ad = $ad;
+
+        return $this;
+    }
+
+    /**
+     * Get ad
+     *
+     * @return \Baazaar\BaazaarBundle\Entity\Ad
+     */
+    public function getAd()
+    {
+        return $this->ad;
+    }
 }
