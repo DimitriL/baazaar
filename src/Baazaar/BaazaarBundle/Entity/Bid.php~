@@ -1,0 +1,65 @@
+<?php
+
+namespace Baazaar\BaazaarBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+use Doctrine\Common\Collections\ArrayCollection;
+
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * Bid
+ *
+ * @ORM\Table(name="bid")
+ * @ORM\Entity(repositoryClass="Baazaar\BaazaarBundle\Repository\BidRepository")
+ */
+class Bid
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="amount", type="decimal")
+     */
+    private $amount;
+
+    /**
+    * @Gedmo\Timestampable(on="create")
+    * @ORM\Column(type="datetime")
+    */
+    private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(
+     *          targetEntity="Baazaar\UserBundle\Entity\User",
+     *          inversedBy="bids")
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(
+     *          targetEntity="Baazaar\BaazaarBundle\Entity\Ad",
+     *          inversedBy="bids")
+     */
+    private $ad;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

@@ -16,22 +16,22 @@ class AdRepository extends \Doctrine\ORM\EntityRepository
          $qb = $this->createQueryBuilder('a')
                     ->select('a')
                     ->addOrderBy('a.createdAt', 'DESC');
-        
+
         if(false === is_null($limit)) $qb->setMaxResults ($limit);
-        
+
         return $qb->getQuery()->getResult();
     }
-    
-    public function getAdsByCategoryId($category_id) {       
-        
+
+    public function getAdsByCategoryId($category_id) {
+
         $qb = $this->createQueryBuilder('a')
                     ->select('a')
                     ->join('a.categories', 'c')
                     ->where('c.id = :category_id')
                     ->orderBy('a.id', 'DESC')
                     ->setParameter(':category_id', $category_id);
-        
+
         return $qb->getQuery()->getResult();
     }
-    
+
 }

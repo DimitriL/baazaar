@@ -40,54 +40,60 @@ class Ad
      * @ORM\Column(name="body", type="string", length=255)
      */
     private $body;
-    
+
     /**
      * @ORM\ManyToOne(
      *          targetEntity="Baazaar\UserBundle\Entity\User",
      *          inversedBy="ads")
      */
     private $owner;
-    
+
     /**
      * @Gedmo\Slug(fields={"title"}, updatable=false)
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     protected $slug;
-    
+
     /**
     * @Gedmo\Timestampable(on="create")
     * @ORM\Column(type="datetime")
     */
     private $createdAt;
-    
+
     /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Baazaar\MediaBundle\Entity\File")
      */
     protected $files;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Baazaar\BaazaarBundle\Entity\Category")
      */
     protected $categories;
-    
-    private $categoriesList;    
+
+    /**
+     * @ORM\OneToMany(targetEntity="Baazaar\BaazaarBundle\Entity\Bid", mappedBy="ad")
+     */
+    protected $bids;
+
+
+    private $categoriesList;
     private $uploads;
-    
+
     public function __construct() {
         $this->files = new ArrayCollection();
         $this->categories = new ArrayCollection();
-        
+
         //uploads needs to be an array
         $this->uploads = Array();
-        
+
     }
-    
+
     /**
      * Get id
      *
@@ -169,15 +175,15 @@ class Ad
     {
         return $this->owner;
     }
-    
+
     public function getSlug() {
         return $this->slug;
     }
-    
+
     public function setSlug($slug) {
         $this->slug = $slug;
     }
-    
+
     /**
      * @return \DateTime
      */
@@ -193,26 +199,26 @@ class Ad
     {
        return $this->updatedAt;
     }
-    
+
     public function getFiles() {
         return $this->files;
     }
-    
+
     public function getUploads() {
         return $this->uploads;
     }
-    
+
     public function setUploads($uploads) {
-        
+
         $this->uploads = $uploads;
     }
-    
+
     public function getCategoriesList() {
         return $this->categoriesList;
     }
-    
+
     public function setCategoriesList($categoriesList) {
-        
+
         $this->categoriesList = $categoriesList;
     }
 
@@ -267,7 +273,7 @@ class Ad
     {
         $this->files->removeElement($file);
     }
-    
+
 
     /**
      * Add category
@@ -302,7 +308,7 @@ class Ad
     {
         return $this->categories;
     }
-    
+
     /**
      * Set categories
      *
@@ -311,5 +317,39 @@ class Ad
     public function setCategories($categories)
     {
         $this->categories = $categories;
+    }
+
+    /**
+     * Add bid
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Bid $bid
+     *
+     * @return Ad
+     */
+    public function addBid(\Baazaar\BaazaarBundle\Entity\Bid $bid)
+    {
+        $this->bids[] = $bid;
+
+        return $this;
+    }
+
+    /**
+     * Remove bid
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Bid $bid
+     */
+    public function removeBid(\Baazaar\BaazaarBundle\Entity\Bid $bid)
+    {
+        $this->bids->removeElement($bid);
+    }
+
+    /**
+     * Get bids
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBids()
+    {
+        return $this->bids;
     }
 }

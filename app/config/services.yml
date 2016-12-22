@@ -4,6 +4,9 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.user_to_username_transformer:
+        class: Baazaar\UserBundle\Form\DataTransformer\UserToUsernameTransformer
+        arguments:
+            - "@doctrine"
+    fos_user.user_to_username_transformer:
+        alias: app.user_to_username_transformer

@@ -32,7 +32,7 @@ a:hover{color:#984B43;}
   .sorting ul{list-style-type: none;margin-top:0;padding-top:0;}
     .sorting ul li{float:left;margin-right: 20px;}
 
-.product{overflow:hidden;border:1px solid #233237;margin-bottom:25px;border-radius: 10px 0 0 0;}
+.product{overflow:hidden;border:1px solid #233237;margin-bottom:25px;border-radius: 10px 0 0 0;min-height: 280px;}
   .product__header{overflow:hidden;}
     .product__header--media{min-height: 150px;background-size:cover;background-repeat:no-repeat;  background-position: center center;}
     .product__header--title{font-size:14pt;font-weight:bold;padding:15px 15px 0 15px;}
@@ -60,6 +60,7 @@ a:hover{color:#984B43;}
 .social-buttons ul{list-style-type: none;margin:0;padding:0;margin-top: -15px;}
 .social-buttons ul li{float:left;margin-right: 15px;}
 .social-buttons i{color:#984B43;}
-.social-buttons .large{font-size:30pt;}
 
+/*icon formats*/
+i.large{font-size:30pt;}
 i.medium{font-size:16pt;}

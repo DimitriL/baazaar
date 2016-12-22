@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use FOS\MessageBundle\Model\ParticipantInterface;
 use Serializable;
 
 /**
@@ -17,7 +18,7 @@ use Serializable;
  * @UniqueEntity(fields="username", message="That username is taken!")
  * @UniqueEntity(fields="email", message="That email is taken!")
  */
-class User implements AdvancedUserInterface, Serializable
+class User implements AdvancedUserInterface, Serializable, ParticipantInterface
 {
     /**
      * @var integer
@@ -43,33 +44,33 @@ class User implements AdvancedUserInterface, Serializable
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="salt", type="string", length=255)
      */
     private $salt;
-    
+
     /**
      * @ORM\Column(type="json_array")
      */
     private $roles = array();
-    
+
     /**
     * @var bool
     *
     * @ORM\Column(type="boolean")
     */
     private $isActive;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Email
      */
     private $email;
-    
+
     /**
      *@Assert\NotBlank()
      * @Assert\Regex(
@@ -78,25 +79,30 @@ class User implements AdvancedUserInterface, Serializable
      * )
      */
     private $plainPassword;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Baazaar\BaazaarBundle\Entity\Ad", mappedBy="owner")
      */
     protected $ads;
-    
-    
+
+    /**
+     * @ORM\OneToMany(targetEntity="Baazaar\BaazaarBundle\Entity\Bid", mappedBy="user")
+     */
+    protected $bids;
+
+
     /**
      * @ORM\OneToMany(targetEntity="Baazaar\MediaBundle\Entity\File", mappedBy="owner")
      */
     protected $files;
-    
+
     public function __construct() {
         $this->ads = new ArrayCollection();
         $this->files = new ArrayCollection();
         $this->setSalt();
         $this->setIsActive(true);
     }
-    
+
     /**
      * Get id
      *
@@ -154,29 +160,29 @@ class User implements AdvancedUserInterface, Serializable
     {
         return $this->password;
     }
-    
+
     public function getRoles() {
         $roles = $this->roles;
         $roles[] =  'ROLE_USER';
-        
+
         return array_unique($roles);
     }
-    
+
     public function setRoles(array $roles) {
         $this->roles = $roles;
-        
+
         // allows for chaining
         return $this;
     }
-    
+
     public function eraseCredentials() {
         $this->setPlainPassword(null);
     }
-    
+
     public function getSalt() {
         return $this->salt;
     }
-    
+
     public function setSalt() {
         $this->salt = md5(time());
     }
@@ -203,7 +209,7 @@ class User implements AdvancedUserInterface, Serializable
     {
         return $this->isActive;
     }
-    
+
     public function isAccountNonExpired()
     {
         return true;
@@ -263,21 +269,21 @@ class User implements AdvancedUserInterface, Serializable
             $this->password,
         ) = unserialize($serialized);
     }
-    
+
     public function getPlainPassword() {
         return $this->plainPassword;
     }
-    
+
     public function setPlainPassword($plainPassword) {
         $this->plainPassword = $plainPassword;
 
         return $this;
     }
-    
+
     public function getAds() {
         return $this->ads;
     }
-    
+
     public function getFiles() {
         return $this->files;
     }

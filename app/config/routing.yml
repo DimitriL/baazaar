@@ -9,3 +9,7 @@ baazaar_user:
 baazaar_baazaar:
     resource: "@BaazaarBaazaarBundle/Resources/config/routing.yml"
     prefix:   /
+    
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /optional_routing_prefix

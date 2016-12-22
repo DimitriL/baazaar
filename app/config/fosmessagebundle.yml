@@ -1,0 +1,4 @@
+fos_message:
+    db_driver: orm
+    thread_class: Baazaar\MessageBundle\Entity\Thread
+    message_class: Baazaar\MessageBundle\Entity\Message
