@@ -25,7 +25,18 @@
                       <li><a href="{{ path('baazaar_baazaar_contact') }}">contact</a></li>
                       <li>
                           {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                             <a class="link " href="{{ path('baazaar_user_logout') }}">Logout</a>
+                             <ul class="dropdown menu user--menu" data-dropdown-menu>
+                              <li>
+                                <a href="#">{{ app.user.username }}</a>
+                                <ul class="menu">
+                                  <li><a href="#">Zoekertjes</a></li>
+                                  <li><a href="#">Berichten</a></li>
+                                  <li><a href="#">Biedingen</a></li>
+                                  <li><a href="#">Profiel</a></li>
+                                  <li><a href="#">Favorieten</a></li>
+                                </ul>
+                              </li>
+                            </ul>
                           {% else %}
                               <a class="button" href="{{ path('baazaar_user_login') }}">Login</a>
                           {% endif %}

@@ -35,15 +35,16 @@
                                           {% if firstFile %}
                                             <div class="product__header--media" style="background-image:url('{{asset('uploads/' ~ firstFile.path) }}')">
                                           {% else %}
-                                            <div class="product__header--media" style="background-image:url('')">
+                                            <div class="product__header--media" style="background-image:url('{{asset('uploads/' ~ firstFile.path) }}')">
                                           {% endif %}
                                           </div>
                                         </a>
-                                        <h2 class="product__header--title">
-                                          <a href="{{path('baazaar_baazaar_ad', {'slug' : ad.slug } ) }}">
-                                            {{ ad.title}}
-                                          </a>
-                                        </h2>
+
+                                      <h2 class="product__header--title">
+                                        <a href="{{path('baazaar_baazaar_ad', {'slug' : ad.slug } ) }}">
+                                          {{ ad.title}}
+                                        </a>
+                                      </h2>
                                     </div>
                                     <div class="product__content">
                                       <ul>

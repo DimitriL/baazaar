@@ -1,89 +1,122 @@
 {% extends 'BaazaarBaazaarBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="row">
-         <div class="medium-4 columns">
-            <h2>{{ ad.title }}</h2>
 
-            <ul class="small-block-grid-2 medium-block-grid-2 large-block-grid-2 clearing-thumbs" data-clearing>
-                {% for file in  ad.files %}
-                    <li><a href="{{asset('uploads/' ~ file.path) }}"><img src="{{asset('uploads/' ~ file.path) }}" /></a></li>
-                {% endfor %}
-            </ul>
+<div class="row columns">
+  <nav aria-label="You are here:" role="navigation">
+    <ul class="breadcrumbs">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Features</a></li>
+      <li class="disabled">Gene Splicing</li>
+      <li>
+        <span class="show-for-sr">Current: </span> Cloning
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="row">
+  <div class="medium-4 large-4 columns">
+      {% set firstFile = ad.files|first %}
+      {% if firstFile %}
+        <img class="thumbnail"  src="{{ asset('uploads/' ~ firstFile.path)}}" />
+      {% else %}
+        <img class="thumbnail" src="http://placehold.it/650x350">
+      {% endif %}
+      <div class="row small-up-4">
+        {% for file in ad.files %}
+        <div class="column">
+          <img class="thumbnail" src="{{ asset('uploads/' ~ file.path)}}">
+        </div>
+        {% endfor %}
+      </div>
+  </div>
+  <div class="medium-8 large-8 columns">
+  <div class="row">
+    <div class="medium-6 large-6 columns ad--details">
+      <h3>{{ ad.title }}</h3>
+      <p>{{ ad.body }}</P>
+        <ul>
+            <li><i class="fi-euro medium"></i>&nbsp;35</li>
+            <li><i class="fi-marker medium"></i>&nbsp;Antwerpen</li>
+            {% for category  in ad.categories %}
+                  <li><i class="fi-filter medium"></i>&nbsp;{{category.title}}</li>
+            {% endfor %}
 
-            {% if app.user == ad.owner %}
-                <a class="button" href="{{ path('baazaar_baazaar_ad_edit', {'id': ad.id}) }}">edit</a>
-            {% endif %}
-            {% if app.user == ad.owner %}
-                <a class="button" href="{{ path('baazaar_baazaar_ad_delete', {'id': ad.id}) }}">delete</a>
-            {% endif %}
-         </div>
-         <div class="medium-5 columns">
-           <!-- ad deatils block -->
-            <div class="block ad--details clearfix">
-              <div class="block--header">
-                Details
-              </div>
-              <div class="block--content ">
-                  <p>{{ ad.body }}
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat rhoncus mi. Pellentesque semper iaculis velit, sit amet aliquam urna vestibulum venenatis. Nunc nisl justo, pretium non tempor vitae, feugiat non erat. Pellentesque sit amet sem lorem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla lacinia mi tempus lobortis congue. Maecenas sed interdum enim. Pellentesque suscipit finibus justo varius aliquam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam sed cursus ipsum. Mauris sollicitudin tincidunt mollis. Nam id blandit leo, id accumsan odio. Nam faucibus, turpis eu tempus volutpat, erat magna faucibus turpis, et iaculis purus risus posuere nulla. Vivamus laoreet, ex a ultricies venenatis,
-                    augue magna sodales felis, at congue dui ante quis orci. Etiam eu eros et enim vulputate lobortis. Cras feugiat congue magna quis suscipit.
-                  </p>
-                  <ul>
-                      <li><i class="fi-euro medium"></i>&nbsp;35</li>
-                      <li><i class="fi-marker medium"></i>&nbsp;Antwerpen</li>
-                      {% for category  in ad.categories %}
-                            <li><i class="fi-filter medium"></i>&nbsp;{{category.title}}</li>
-                      {% endfor %}
+            <li><i class="fi-check medium"></i>&nbsp;Gebruikt (staat van het object)</li>
+            <li><i class="fi-arrows-in medium"></i>&nbsp;Enkel ophalen</li>
+            <li></li>
+        </ul>
+        <!-- social buttons block -->
+         <div class="block social-buttons clearfix">
+           <div class="block--header">
+               Een bod plaatsen (vanaf &euro;200)
+           </div>
+           <div class="block--content ">
+              <input type="text" placeholder="uw bod"/>
+              <table>
+                <tr>
+                  <td>22 december 2016</td>
+                  <td>€ 2.981,00</td>
+                  <td>dimi</td>
+                </tr>
+              </table>
+           </div>
+             <div class="block--footer">
 
-                      <li><i class="fi-check medium"></i>&nbsp;Gebruikt (staat van het object)</li>
-                      <li><i class="fi-arrows-in medium"></i>&nbsp;Enkel ophalen</li>
-                      <li></li>
-                  </ul>
-              </div>
-                <div class="block--footer">
-
-                </div>
-            </div>
-         </div>
-         <div class="medium-3 columns">
-           <div class="row">
-             <!-- social buttons block -->
-              <div class="block social-buttons clearfix">
-                <div class="block--header">
-                    Dit zoekertje delen met vrienden
-                </div>
-                <div class="block--content ">
-                    <ul>
-                        <li><i class="fi-social-facebook large"></i></li>
-                        <li><i class="fi-social-twitter large"></i></li>
-                        <li><i class="fi-mail large"></i></li>
-                    </ul>
-                </div>
-                  <div class="block--footer">
-
-                  </div>
-              </div>
-            </div>
-            <div class="row">
-                <!-- user info block -->
-                <div class="block user-info clearfix">
-                  <div class="block--header">
-                      Contacteer de verkoper
-                  </div>
-                  <div class="block--content ">
-                      <h4>{{ad.owner.username}}</h4>
-                      <ul>
-                          <li><a class="button" href="#"><i class="fi-telephone"></i>&nbsp;via telefoon</li></a></li>
-                          <li><a class="button" href="#"><i class="fi-mail"></i>&nbsp;via email</a></li>
-                          <li><a class="button" href="#"><i class="fi-comment"></i>&nbsp;via bericht op de website</a></li>
-                      </ul>
-                  </div>
-                  <div class="block--footer">
-
-                  </div>
-                </div>
-            </div>
+             </div>
          </div>
     </div>
+    <div class="medium-6 large-6 columns">
+      <!-- social buttons block -->
+       <div class="block social-buttons clearfix">
+         <div class="block--header">
+             Dit zoekertje delen met vrienden
+         </div>
+         <div class="block--content ">
+             <ul>
+                 <li><i class="fi-social-facebook large"></i></li>
+                 <li><i class="fi-social-twitter large"></i></li>
+                 <li><i class="fi-mail large"></i></li>
+             </ul>
+         </div>
+           <div class="block--footer">
+
+           </div>
+       </div>
+
+        <!-- user info block -->
+        <div class="block user-info clearfix">
+          <div class="block--header">
+              Contacteer de verkoper
+          </div>
+          <div class="block--content ">
+              <h4>{{ad.owner.username}}</h4>
+              <ul>
+                  <li><a class="button" href="#"><i class="fi-telephone"></i>&nbsp;via telefoon</li></a></li>
+                  <li><a class="button" href="#"><i class="fi-mail"></i>&nbsp;via email</a></li>
+                  <li><a class="button" href="#"><i class="fi-comment"></i>&nbsp;via bericht op de website</a></li>
+              </ul>
+          </div>
+          <div class="block--footer"></div>
+        </div>
+
+        <div class="block actions">
+          <div class="block--header">
+              Acties
+          </div>
+          <div class="block--content ">
+            <ul class="ad--action_bar">
+              <li><a class=""><i class="fi-heart medium"></i>als favoriet markeren</a></li>
+              <li><a class=""><i class="fi-alert medium"></i>misbruik rapporteren</a></li>
+            </ul>
+          </div>
+          <div class="block--footer">
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
