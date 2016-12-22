@@ -27,18 +27,20 @@ class PriceType extends AbstractType {
           'required' => true
         ));
 
-        $builder->add('amount', TextType::class);
+        //$builder->add('amount', TextType::class);
         //$builder->add('accept_bidding', CheckboxType::class);
         //$builder->add('minimum_bidding_amount', TextType::class);
 
 
         $formModifier = function (\Symfony\Component\Form\Form $form, Price $price = null) {
-            var_dump($price);
             switch($price->getPriceType()) {
-                case null:
+                case 'amount':
                     $form->add('amount', TextType::class);
                     $form->add('accept_bidding', CheckboxType::class);
-                  break;
+                    break;
+                case 'consent':
+                    $form->add('amount', TextType::class);
+                    break;
             }
         };
 
@@ -55,7 +57,6 @@ class PriceType extends AbstractType {
           FormEvents::POST_SUBMIT,
           function (FormEvent $event) use ($formModifier) {
 
-              var_dump($event->getForm()->getData());
               // It's important here to fetch $event->getForm()->getData(), as
               // $event->getData() will get you the client data (that is, the ID)
               $price_type = $event->getForm()->getData();
@@ -82,6 +83,7 @@ class PriceType extends AbstractType {
 
     protected function getPriceTypes() {
       return array(
+          '-- select --' => null,
           'amount' => 'amount',
           'consent' => 'consent',
           'free' => 'free',

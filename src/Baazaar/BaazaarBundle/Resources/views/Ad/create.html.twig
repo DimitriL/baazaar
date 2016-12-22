@@ -32,16 +32,13 @@
       type: $form.attr('method'),
       data : $(this).serialize(),
       success: function(html) {
+
         // Replace current position field ...
-        jQuery('#ad_price_amount').replaceWith(
+        jQuery('#ad_price').replaceWith(
           // ... with the returned one from the AJAX response.
-          jQuery(html).find('#ad_price_amount')
+          jQuery(html).find('#ad_price')
         );
-        // Replace current position field ...
-        jQuery('#ad_price_accept_bidding').replaceWith(
-          // ... with the returned one from the AJAX response.
-          jQuery(html).find('#ad_price_accept_bidding')
-        );
+
       }
     });
   });

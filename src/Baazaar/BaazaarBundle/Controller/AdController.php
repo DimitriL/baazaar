@@ -33,8 +33,8 @@ class AdController extends Controller {
         $form = $this->createForm(AdType::class, $ad);
 
         if ($request->isMethod('POST')) {
-            $form->submit($request->request->get($form->getName()));
 
+            $form->handleRequest($request);
             //on a GET request, $form->isSubmitted() returns false.
             if($form->isValid() && $form->isSubmitted()) {
                 $user = $this->getUser();
