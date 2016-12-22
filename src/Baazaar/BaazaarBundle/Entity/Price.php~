@@ -1,0 +1,64 @@
+<?php
+
+namespace Baazaar\BaazaarBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Price
+ *
+ * @ORM\Table(name="price")
+ * @ORM\Entity(repositoryClass="Baazaar\BaazaarBundle\Repository\PriceRepository")
+ */
+class Price
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="rating", type="integer")
+     */
+    private $price_type;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="amount", type="decimal")
+     */
+    private $amount;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="accept_bidding", type="boolean")
+     */
+    private $accept_bidding;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="minimum_bidding_amount", type="decimal")
+     */
+    private $minimum_bidding_amount;
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

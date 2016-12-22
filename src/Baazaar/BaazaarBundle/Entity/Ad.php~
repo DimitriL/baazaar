@@ -55,6 +55,27 @@ class Ad
     protected $slug;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="delivery_method", type="string", length=255)
+     */
+    private $delivery_method;
+
+    /**
+     * One Product has One Price.
+     * @ORM\OneToOne(targetEntity="Baazaar\BaazaarBundle\Entity\Price")
+     * @ORM\JoinColumn(name="price_id", referencedColumnName="id")
+     */
+    private $price;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="object_status", type="string", length=255)
+     */
+    private $object_status;
+
+    /**
     * @Gedmo\Timestampable(on="create")
     * @ORM\Column(type="datetime")
     */
@@ -392,5 +413,77 @@ class Ad
     public function getAdReports()
     {
         return $this->ad_reports;
+    }
+
+    /**
+     * Set deliveryMethod
+     *
+     * @param string $deliveryMethod
+     *
+     * @return Ad
+     */
+    public function setDeliveryMethod($deliveryMethod)
+    {
+        $this->delivery_method = $deliveryMethod;
+
+        return $this;
+    }
+
+    /**
+     * Get deliveryMethod
+     *
+     * @return string
+     */
+    public function getDeliveryMethod()
+    {
+        return $this->delivery_method;
+    }
+
+    /**
+     * Set objectStatus
+     *
+     * @param string $objectStatus
+     *
+     * @return Ad
+     */
+    public function setObjectStatus($objectStatus)
+    {
+        $this->object_status = $objectStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get objectStatus
+     *
+     * @return string
+     */
+    public function getObjectStatus()
+    {
+        return $this->object_status;
+    }
+
+    /**
+     * Set price
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Price $price
+     *
+     * @return Ad
+     */
+    public function setPrice(\Baazaar\BaazaarBundle\Entity\Price $price = null)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return \Baazaar\BaazaarBundle\Entity\Price
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }

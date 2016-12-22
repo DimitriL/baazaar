@@ -7,6 +7,7 @@ use Baazaar\BaazaarBundle\Entity\Ad;
 use Baazaar\BaazaarBundle\Entity\Category;
 use Baazaar\BaazaarBundle\Form\AdType;
 use Baazaar\MediaBundle\Entity\File;
+use Baazaar\BaazaarBundle\Entity\Price;
 
 class AdController extends Controller {
     public function indexAction($slug) {
@@ -29,34 +30,36 @@ class AdController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $ad = new Ad();
-        //category repository needed in formType to get term tree
         $form = $this->createForm(AdType::class, $ad);
 
-        $form->handleRequest($request);
+        if ($request->isMethod('POST')) {
+            $form->submit($request->request->get($form->getName()));
 
-        //on a GET request, $form->isSubmitted() returns false.
-        if($form->isValid() && $form->isSubmitted()) {
-            $user = $this->getUser();
+            //on a GET request, $form->isSubmitted() returns false.
+            if($form->isValid() && $form->isSubmitted()) {
+                $user = $this->getUser();
 
-            foreach($ad->getUploads() as $upload) {
-                $file = new File();
-                $this->createFile($file, $upload);
+                foreach($ad->getUploads() as $upload) {
+                    $file = new File();
+                    $this->createFile($file, $upload);
 
-                //add file object to files property
-                $ad->getFiles()->add($file);
+                    //add file object to files property
+                    $ad->getFiles()->add($file);
+                }
+
+                //only 1 possibilty at the moment
+                $category = $em->getRepository('BaazaarBaazaarBundle:Category')->find($ad->getCategoriesList());
+                $ad->addCategory($category);
+
+                $ad->setOwner($user);
+                $em->persist($ad);
+                $em->flush();
+
+                //add flash notice
+                return $this->redirect($this->generateUrl('baazaar_baazaar_homepage')); //redirect to homepage
             }
-
-            //only 1 possibilty at the moment
-            $category = $em->getRepository('BaazaarBaazaarBundle:Category')->find($ad->getCategoriesList());
-            $ad->addCategory($category);
-
-            $ad->setOwner($user);
-            $em->persist($ad);
-            $em->flush();
-
-            //add flash notice
-            return $this->redirect($this->generateUrl('baazaar_baazaar_homepage')); //redirect to homepage
         }
+
         return $this->render('BaazaarBaazaarBundle:Ad:create.html.twig', array(
             'form' => $form->createView()
         ));

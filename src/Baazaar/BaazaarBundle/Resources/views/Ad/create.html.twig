@@ -11,4 +11,39 @@
          <input type="submit" value="Submit">
       {{ form_end(form) }}
     </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+  {{parent()}}
+  <script>
+  var $price_type = jQuery('#ad_price_price_type');
+  // When sport gets selected ...
+  $price_type.change(function() {
+    // ... retrieve the corresponding form.
+    var $form = jQuery(this).closest('form');
+    // Simulate form data, but only include the selected price_type value.
+
+    // Submit data via AJAX to the form's action path.
+    jQuery.ajax({
+      url : $form.attr('action'),
+      type: $form.attr('method'),
+      data : $(this).serialize(),
+      success: function(html) {
+        // Replace current position field ...
+        jQuery('#ad_price_amount').replaceWith(
+          // ... with the returned one from the AJAX response.
+          jQuery(html).find('#ad_price_amount')
+        );
+        // Replace current position field ...
+        jQuery('#ad_price_accept_bidding').replaceWith(
+          // ... with the returned one from the AJAX response.
+          jQuery(html).find('#ad_price_accept_bidding')
+        );
+      }
+    });
+  });
+  </script>
 {% endblock %}
