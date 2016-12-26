@@ -39,7 +39,12 @@ class UserController extends Controller{
 
     public function favoritesAction($user_id) {
       $this->enforceOwnerSecurityForProfile($user_id);
-      return $this->render('BaazaarBaazaarBundle:User:inbox.html.twig', array(
+
+      $user= $this->getUser();
+      $favorites = $user->getFavoriteAds();
+
+      return $this->render('BaazaarBaazaarBundle:User:favorites.html.twig', array(
+        "ads" => $favorites
       ));
     }
 

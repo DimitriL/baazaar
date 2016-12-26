@@ -117,7 +117,18 @@ class AdController extends Controller {
         return $this->redirect($this->generateUrl('baazaar_baazaar_ad_edit', array('id' => $ad->getId())));
     }
 
-    public function markFavoriteAction() {
-      
+    public function markFavoriteAction($id) {
+      $em = $this->getDoctrine()->getManager();
+      $ad = $em->getRepository('BaazaarBaazaarBundle:Ad')->find($id);
+
+      $user = $this->getUser();
+      $user->addFavoriteAd($ad);
+
+      $em->persist($user);
+      $em->flush();
+
+
+    return $this->redirect($this->generateUrl('baazaar_baazaar_ad', array('slug' => $ad->getSlug())));
+
     }
 }

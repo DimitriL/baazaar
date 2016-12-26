@@ -10,6 +10,9 @@ baazaar_baazaar_contact:
 baazaar_baazaar_ad_create:
     path: /ad/create
     defaults: { _controller: BaazaarBaazaarBundle:Ad:create }
+baazaar_baazaar_ad_favorite:
+    path: /ad/favorite/{id}
+    defaults: { _controller: BaazaarBaazaarBundle:Ad:markFavorite }
 baazaar_baazaar_ad_edit:
     path: /ad/{id}/edit
     defaults: { _controller: BaazaarBaazaarBundle:Ad:edit }
