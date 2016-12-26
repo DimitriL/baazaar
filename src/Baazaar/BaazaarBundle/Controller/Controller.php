@@ -28,6 +28,13 @@ class Controller extends BaseController {
         }
     }
 
+    public function enforceOwnerSecurityForProfile($user_id) {
+        $user = $this->getUser();
+        if($user->getId() != $user_id) {
+            throw $this->createAccessDeniedException('You are not the owner of this page!');
+        }
+    }
+
     public function createFile(&$file, $upload = null) {
 
         if(empty($upload)) $upload = $file->getFile();

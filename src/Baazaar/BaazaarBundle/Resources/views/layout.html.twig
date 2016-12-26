@@ -29,11 +29,12 @@
                               <li>
                                 <a href="#">{{ app.user.username }}</a>
                                 <ul class="menu">
-                                  <li><a href="#">Zoekertjes</a></li>
-                                  <li><a href="#">Berichten</a></li>
-                                  <li><a href="#">Biedingen</a></li>
-                                  <li><a href="#">Profiel</a></li>
-                                  <li><a href="#">Favorieten</a></li>
+                                  <li><a href="{{ url('baazaar_baazaar_user_dashboard', {'user_id': app.user.id }) }}">Dashboard</a></li>
+                                  <li><a href="{{ url('baazaar_baazaar_user_ads', {'user_id': app.user.id }) }}">Zoekertjes</a></li>
+                                  <li><a href="{{ url('baazaar_baazaar_user_inbox', {'user_id': app.user.id }) }}">Berichten</a></li>
+                                  <li><a href="{{ url('baazaar_baazaar_user_bids', {'user_id': app.user.id }) }}">Biedingen</a></li>
+                                  <li><a href="{{ url('baazaar_baazaar_user_settings', {'user_id': app.user.id }) }}">Settings</a></li>
+                                  <li><a href="{{ url('baazaar_baazaar_user_favorites', {'user_id': app.user.id }) }}">Favorieten</a></li>
                                 </ul>
                               </li>
                             </ul>

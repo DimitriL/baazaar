@@ -34,4 +34,15 @@ class AdRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function getAdsByUser($user_id) {
+      $qb = $this->createQueryBuilder('a')
+                  ->select('a')
+                  ->join('a.owner', 'c')
+                  ->where('c.id = :user_id')
+                  ->orderBy('a.id', 'DESC')
+                  ->setParameter(':user_id', $user_id);
+
+      return $qb->getQuery()->getResult();
+    }
+
 }

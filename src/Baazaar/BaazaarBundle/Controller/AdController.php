@@ -116,4 +116,8 @@ class AdController extends Controller {
 
         return $this->redirect($this->generateUrl('baazaar_baazaar_ad_edit', array('id' => $ad->getId())));
     }
+
+    public function markFavoriteAction() {
+      
+    }
 }

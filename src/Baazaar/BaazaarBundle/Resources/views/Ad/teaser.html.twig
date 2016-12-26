@@ -1,0 +1,44 @@
+<div class="product">
+  <div class="product__header">
+      <a href="{{path('baazaar_baazaar_ad', {'slug' : ad.slug } ) }}">
+        {% set firstFile = ad.files|first %}
+        {% if firstFile %}
+          <div class="product__header--media" style="background-image:url('{{asset('uploads/' ~ firstFile.path) }}')">
+        {% else %}
+          <div class="product__header--media" style="background-image:url('')">
+        {% endif %}
+        </div>
+      </a>
+
+      <h2 class="product__header--title">
+        <a href="{{path('baazaar_baazaar_ad', {'slug' : ad.slug } ) }}">
+          {{ ad.title}}
+        </a>
+      </h2>
+  </div>
+  <div class="product__content">
+    <div class="product--timestamp">
+          <i class="fi-clock"></i>&nbsp;{{ ad.createdAt|date('d M Y - H:i')}}
+    </div>
+    <span class="divider--horizontal"></span>
+    <div class="product--price">
+        &euro;35
+    </div>
+    <!--<span class="divider--vertical"></span>-->
+    <div class="product--category">
+      {% set firstCategory = ad.categories|first %}
+      {% if firstCategory %}
+          <!--<i class="fi-filter"></i>&nbsp;--><a href="{{ url('baazaar_baazaar_category', {'id': firstCategory.id} )}}"> {{firstCategory.title}} </a>
+      {% endif %}
+    </div>
+    <div class="clearfix"></div>
+    <span class="divider--horizontal"></span>
+    <div class="product--location">
+        <i class="fi-marker"></i>&nbsp;kapellen, antwerpen
+    </div>
+
+  </div>
+  <div class="product__footer">
+      <a class="button" href="{{path('baazaar_baazaar_ad', {'slug' : ad.slug } ) }}">Bekijk</a>
+  </div>
+</div>
