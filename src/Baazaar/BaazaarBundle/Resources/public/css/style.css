@@ -57,6 +57,11 @@ a:hover{color:#984B43;}
 .ad--details ul{list-style-type: none;margin-left:0;}
 .ad--details ul li i{display: inline-block;width:20px;margin-right: 2px;}
 
+/*bids block*/
+.bids--user span{display: inline-block;margin-right: 25px;}
+.bids--user span:first-child{margin-right: 5px;}
+.bids--user span:first-child{padding-top: 2px;}
+
 /*social buttons*/
 .social-buttons ul{list-style-type: none;margin:0;padding:0;margin-top: -15px;}
 .social-buttons ul li{float:left;margin-right: 15px;}
@@ -72,3 +77,11 @@ i.medium{font-size:16pt;}
 
 .button i{float:left;}
 .button .button--text{    margin-top: 3px;    display: inline-block;    font-weight: bold;}
+
+.footer h4{color:wheat;}
+.footer .menu > li > a{padding:0.3em;}
+.footer-first{background-color: #233237;padding:5px 25px 25px 25px;margin-top:50px;color:white;}
+.footer-first a{color:white;}
+.footer-second{background-color: #18121E;padding:25px;color:white;}
+.footer-second a{color:white;}
+.footer--centered{text-align: center;}

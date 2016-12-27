@@ -21,8 +21,6 @@
 
                 <div class="nav-top--right medium-6 columns">
                     <ul class="menu align-right">
-                      <li><a href="{{ path('baazaar_baazaar_about') }}">about</a></li>
-                      <li><a href="{{ path('baazaar_baazaar_contact') }}">contact</a></li>
                       <li>
                           {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                              <ul class="dropdown menu user--menu" data-dropdown-menu>
@@ -65,6 +63,47 @@
     <div class="wrapper">
             {% block body %}{% endblock %}
     </div>
+    <div class="footer footer-first">
+        <div class="row footer-first">
+
+          <ul class="menu vertical medium-3 columns">
+              <h4>Over baazaar</h4>
+              <li><a href="{{ path('baazaar_baazaar_about') }}">about</a></li>
+              <li><a href="{{ path('baazaar_baazaar_contact') }}">contact</a></li>
+              <li><a href="">blog</a></li>
+          </ul>
+          <ul class="menu vertical medium-3 columns">
+              <h4>Handige links</h4>
+              <li>faq</li>
+          </ul>
+          <ul class="menu vertical medium-3 columns">
+              <h4>Vind ons op</h4>
+                <li>Facebook</li>
+                <li>Twitter</li>
+          </ul>
+          <ul class="menu vertical medium-3 columns">
+            <h4>Populaire onderwerpen</h4>
+              <li>Playstation 1</li>
+              <li>Nintendo DS</li>
+          </ul>
+        </div>
+    </div>
+      <div class="footer footer-second">
+        <div class="row ">
+          <div class="footer--centered">
+
+              <a href="">Algemene voorwaarden</a> &nbsp;-
+              <a href="">Privacy</a>&nbsp;-
+              <a href="">Cookies</a>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="footer--centered">
+            © 2016 - 2017 - Baazaar
+          </div>
+        </div>
+    </footer>
 
         {% block javascripts %}
             <script src="{{ asset('bundles/baazaarbaazaar/js/vendor/jquery.js') }}"></script>
