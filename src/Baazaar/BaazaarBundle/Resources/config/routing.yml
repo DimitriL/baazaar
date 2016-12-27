@@ -10,6 +10,9 @@ baazaar_baazaar_contact:
 baazaar_baazaar_ad_create:
     path: /ad/create
     defaults: { _controller: BaazaarBaazaarBundle:Ad:create }
+baazaar_baazaar_ad_favorite:
+    path: /ad/favorite/{id}
+    defaults: { _controller: BaazaarBaazaarBundle:Ad:markFavorite }
 baazaar_baazaar_ad_edit:
     path: /ad/{id}/edit
     defaults: { _controller: BaazaarBaazaarBundle:Ad:edit }
@@ -28,3 +31,22 @@ baazaar_baazaar_category:
 baazaar_baazaar_create_categories:
     path: /category/create/categories
     defaults: { _controller: BaazaarBaazaarBundle:Category:createCategories }
+
+baazaar_baazaar_user_dashboard:
+      path: /user/{user_id}/dashboard
+      defaults: { _controller: BaazaarBaazaarBundle:User:dashboard }
+baazaar_baazaar_user_ads:
+      path: /user/{user_id}/advertenties
+      defaults: { _controller: BaazaarBaazaarBundle:User:ads }
+baazaar_baazaar_user_inbox:
+      path: /user/{user_id}/inbox
+      defaults: { _controller: BaazaarBaazaarBundle:User:inbox }
+baazaar_baazaar_user_favorites:
+      path: /user/{user_id}/favorieten
+      defaults: { _controller: BaazaarBaazaarBundle:User:favorites }
+baazaar_baazaar_user_bids:
+      path: /user/{user_id}/biedingen
+      defaults: { _controller: BaazaarBaazaarBundle:User:bids }
+baazaar_baazaar_user_settings:
+      path: /user/{user_id}/settings
+      defaults: { _controller: BaazaarBaazaarBundle:User:settings }

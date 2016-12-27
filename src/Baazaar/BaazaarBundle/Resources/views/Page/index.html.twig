@@ -28,36 +28,7 @@
                          <div class="products--grid row">
                             {% for ad in ads %}
                               <div class="small-12 medium-6 large-3 columns {% if loop.last %}end {% endif %}">
-                                  <div class="product">
-                                    <div class="product__header">
-                                        <a href="{{path('baazaar_baazaar_ad', {'slug' : ad.slug } ) }}">
-                                          {% set firstFile = ad.files|first %}
-                                          {% if firstFile %}
-                                            <div class="product__header--media" style="background-image:url('{{asset('uploads/' ~ firstFile.path) }}')">
-                                          {% else %}
-                                            <div class="product__header--media" style="background-image:url('{{asset('uploads/' ~ firstFile.path) }}')">
-                                          {% endif %}
-                                          </div>
-                                        </a>
-
-                                      <h2 class="product__header--title">
-                                        <a href="{{path('baazaar_baazaar_ad', {'slug' : ad.slug } ) }}">
-                                          {{ ad.title}}
-                                        </a>
-                                      </h2>
-                                    </div>
-                                    <div class="product__content">
-                                      <ul>
-                                        <li>
-                                          <i class="fi-clock"></i>&nbsp;{{ ad.createdAt|date('d M Y - H:i')}}
-                                        </li>
-                                        {% set firstCategory = ad.categories|first %}
-                                        {% if firstCategory %}
-                                            <li><i class="fi-filter"></i>&nbsp;<a href="{{ url('baazaar_baazaar_category', {'id': firstCategory.id} )}}"> {{firstCategory.title}} </a></li>
-                                        {% endif %}
-                                      </ul>
-                                    </div>
-                                  </div>
+                                  {% include 'BaazaarBaazaarBundle:Ad:teaser.html.twig' %}
                               </div>
                             {% endfor %}
                          </div>

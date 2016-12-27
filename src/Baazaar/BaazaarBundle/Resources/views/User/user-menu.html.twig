@@ -1,0 +1,8 @@
+<ul class="menu  vertical">
+  <li><a href="{{ url('baazaar_baazaar_user_dashboard', {'user_id': app.user.id }) }}">Dashboard</a></li>
+  <li><a href="{{ url('baazaar_baazaar_user_ads', {'user_id': app.user.id }) }}">Mijn Advertenties</a></li>
+  <li><a href="{{ url('baazaar_baazaar_user_inbox', {'user_id': app.user.id }) }}">Berichten</a></li>
+  <li><a href="{{ url('baazaar_baazaar_user_bids', {'user_id': app.user.id }) }}">Biedingen</a></li>
+  <li><a href="{{ url('baazaar_baazaar_user_favorites', {'user_id': app.user.id }) }}">Favorieten</a></li>
+  <li><a href="{{ url('baazaar_baazaar_user_settings', {'user_id': app.user.id }) }}">Settings</a></li>  
+</ul>
