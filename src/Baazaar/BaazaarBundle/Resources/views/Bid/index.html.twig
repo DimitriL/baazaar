@@ -1,0 +1,19 @@
+<div class="row">
+    {{ form_start(form, {'action': path('baazaar_baazaar_ad_bid', {'id' : ad.id}), 'method': 'POST'}) }}
+         {{ form_errors(form) }}
+
+         {{ form_rest(form) }}
+         <input type="submit" value="Submit">
+    {{ form_end(form) }}
+</div>
+<div class="row">
+    <table>
+      {% for bid in ad.bids %}
+          <tr>
+            <td>{{ bid.createdAt|date('d M Y - H:i') }}</td>
+            <td>€ {{ bid.amount }}</td>
+            <td>{{ bid.user.username }}</td>
+          </tr>
+      {% endfor %}
+    </table>
+</div>

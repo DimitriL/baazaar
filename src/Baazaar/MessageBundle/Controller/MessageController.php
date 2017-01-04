@@ -14,7 +14,6 @@ class MessageController extends Controller {
       $ad = $em->getRepository('BaazaarBaazaarBundle:Ad')->findOneBy(array('id' => $ad_id));
 
       //load message send form
-
       $composer = $this->get('fos_message.composer');
       $message = $composer->newThread()
         ->setSender($this->getUser())

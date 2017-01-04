@@ -22,6 +22,9 @@ baazaar_baazaar_ad_delete:
 baazaar_baazaar_ad_update:
     path: /ad/{id}/update
     defaults: { _controller: BaazaarBaazaarBundle:Ad:update }
+baazaar_baazaar_ad_bid:
+        path: /ad/{id}/bid
+        defaults: { _controller: BaazaarBaazaarBundle:Ad:bid }
 baazaar_baazaar_ad:
     path: /ad/{slug}
     defaults: { _controller: BaazaarBaazaarBundle:Ad:index }

@@ -87,14 +87,11 @@
                Een bod plaatsen (vanaf &euro;200)
            </div>
            <div class="block--content ">
-              <input type="text" placeholder="uw bod"/>
-              <table>
-                <tr>
-                  <td>22 december 2016</td>
-                  <td>€ 2.981,00</td>
-                  <td>dimi</td>
-                </tr>
-              </table>
+                 {{ render(controller(
+                    'BaazaarBaazaarBundle:Ad:bid',
+                    { 'id': ad.id }
+                )) }}
+            
            </div>
              <div class="block--footer">
 
