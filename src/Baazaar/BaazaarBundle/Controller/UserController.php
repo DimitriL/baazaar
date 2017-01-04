@@ -33,7 +33,13 @@ class UserController extends Controller{
 
     public function inboxAction($user_id) {
       $this->enforceOwnerSecurityForProfile($user_id);
+
+      //this will only pick up threads not send to yourself
+      $provider = $this->get('fos_message.provider');
+      $threads = $provider->getInboxThreads();
+
       return $this->render('BaazaarBaazaarBundle:User:inbox.html.twig', array(
+        'threads' => $threads
       ));
     }
 

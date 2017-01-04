@@ -107,6 +107,10 @@ class Ad
      */
     protected $ad_reports;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Baazaar\MessageBundle\Entity\Thread", mappedBy="ad")
+     */
+    protected $threads;
 
     private $categoriesList;
     private $uploads;
@@ -116,6 +120,7 @@ class Ad
         $this->categories = new ArrayCollection();
         $this->bids = new ArrayCollection();
         $this->ad_reports = new ArrayCollection();
+        $this->threads = new ArrayCollection();
 
         //uploads needs to be an array
         $this->uploads = Array();
@@ -485,5 +490,39 @@ class Ad
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Add thread
+     *
+     * @param \Baazaar\MessageBundle\Entity\Thread $thread
+     *
+     * @return Ad
+     */
+    public function addThread(\Baazaar\MessageBundle\Entity\Thread $thread)
+    {
+        $this->threads[] = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Remove thread
+     *
+     * @param \Baazaar\MessageBundle\Entity\Thread $thread
+     */
+    public function removeThread(\Baazaar\MessageBundle\Entity\Thread $thread)
+    {
+        $this->threads->removeElement($thread);
+    }
+
+    /**
+     * Get threads
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getThreads()
+    {
+        return $this->threads;
     }
 }

@@ -61,4 +61,100 @@ class Price
     {
         return $this->id;
     }
+
+    /**
+     * Set priceType
+     *
+     * @param integer $priceType
+     *
+     * @return Price
+     */
+    public function setPriceType($priceType)
+    {
+        $this->price_type = $priceType;
+
+        return $this;
+    }
+
+    /**
+     * Get priceType
+     *
+     * @return integer
+     */
+    public function getPriceType()
+    {
+        return $this->price_type;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param string $amount
+     *
+     * @return Price
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return string
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set acceptBidding
+     *
+     * @param boolean $acceptBidding
+     *
+     * @return Price
+     */
+    public function setAcceptBidding($acceptBidding)
+    {
+        $this->accept_bidding = $acceptBidding;
+
+        return $this;
+    }
+
+    /**
+     * Get acceptBidding
+     *
+     * @return boolean
+     */
+    public function getAcceptBidding()
+    {
+        return $this->accept_bidding;
+    }
+
+    /**
+     * Set minimumBiddingAmount
+     *
+     * @param string $minimumBiddingAmount
+     *
+     * @return Price
+     */
+    public function setMinimumBiddingAmount($minimumBiddingAmount)
+    {
+        $this->minimum_bidding_amount = $minimumBiddingAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get minimumBiddingAmount
+     *
+     * @return string
+     */
+    public function getMinimumBiddingAmount()
+    {
+        return $this->minimum_bidding_amount;
+    }
 }
