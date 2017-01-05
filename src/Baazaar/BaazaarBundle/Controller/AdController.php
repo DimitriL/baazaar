@@ -5,9 +5,11 @@ use Baazaar\BaazaarBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Baazaar\BaazaarBundle\Entity\Ad;
 use Baazaar\BaazaarBundle\Entity\Bid;
+use Baazaar\BaazaarBundle\Entity\AdReport;
 use Baazaar\BaazaarBundle\Entity\Category;
 use Baazaar\BaazaarBundle\Form\AdType;
 use Baazaar\BaazaarBundle\Form\BidType;
+use Baazaar\BaazaarBundle\Form\AdReportType;
 use Baazaar\MediaBundle\Entity\File;
 use Baazaar\BaazaarBundle\Entity\Price;
 
@@ -43,7 +45,7 @@ class AdController extends Controller {
         if ($request->isMethod('POST')) {
           $form->handleRequest($request);
 
-          if($form->isSubmitted() && $form->isValid()  ) {
+          if($form->isSubmitted() && $form->isValid()) {
              $bid->setUser($this->getUser());
              $bid->setAd($ad);
 
@@ -61,6 +63,38 @@ class AdController extends Controller {
             "form" => $form->createView()
         ));
 
+    }
+
+    /**
+     * route action to report an ad as inappropriate
+     */
+    public function reportAction($id, Request $request) {
+      $em = $this->getDoctrine()->getManager();
+      $ad = $em->getRepository('BaazaarBaazaarBundle:Ad')->findOneBy(array('id' => $id));
+
+      $adReport = new AdReport();
+      $form = $this->createForm(AdReportType::class, $adReport);
+
+      if ($request->isMethod('POST')) {
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()  ) {
+           $adReport->setReporter($this->getUser());
+           $adReport->setAd($ad);
+
+           //place bid
+           $em->persist($adReport);
+           $em->flush();
+
+           //redirect to ad
+           return $this->redirect($this->generateUrl('baazaar_baazaar_ad', array('slug' => $ad->getSlug())));
+        }
+      }
+
+      return $this->render('BaazaarBaazaarBundle:AdReport:index.html.twig', array(
+          "ad" => $ad,
+          "form" => $form->createView()
+      ));
     }
 
     /**

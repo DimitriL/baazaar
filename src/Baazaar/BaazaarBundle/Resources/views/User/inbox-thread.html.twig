@@ -14,23 +14,18 @@
 
                                         <div class="row">
                                             <div class="large-9 columns">
-                                                <h1 class="font-title">Inbox</h1>
+                                                <h1 class="font-title">Thread {{ thread.subject }}</h1>
                                             </div>
                                             <div class="large-3 columns" style="position:relative;left:25px">
                                             </div>
                                         </div>
                                     </div>
                                 </li>
-                                {% for thread in threads %}
+                                {% for message in thread.messages %}
                                     <li>
-                                      <a href="{{ url('baazaar_baazaar_user_inbox_thread', {'user_id' : app.user.id,'threadId': thread.id }) }}">
-                                          {% if not fos_message_is_read(thread) %} This thread is new! {% endif %}
-                                          <img alt="" class="img-circle star" src="http://api.randomuser.me/portraits/thumb/men/22.jpg">
-                                          <b>{{ thread.createdBy.username }}</b><i class="icon-attachment"></i><i class="text-orange fontello-record"></i><small>{{ thread.createdAt | date('d M Y H:i:s')}}</small>
-                                          <h5>{{ thread.subject }}</h5>
-                                          {% set message = thread.messages|last %}
+                                          {% if not fos_message_is_read(message) %} This message is new! {% endif %}
+                                          <h4>{{ message.createdAt | date('d M Y H:i:s') }}</h4>
                                           <p> {{ message.body }}   </p>
-                                      </a>
                                     </li>
                                 {% endfor %}
                             </ul>

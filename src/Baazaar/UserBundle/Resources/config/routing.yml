@@ -10,3 +10,7 @@ baazaar_user_logout:
 baazaar_user_register:
     path:     /user/register
     defaults: { _controller: BaazaarUserBundle:Register:register }
+
+facebook_login:
+    path: /user/login/check-facebook
+    defaults: { _controller: BaazaarUserBundle:Register:register }
