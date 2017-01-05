@@ -9,6 +9,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
 use Doctrine\ORM\EntityManager;
 
+use Baazaar\UserBundle\Entity\User;
+
 
 class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProviderInterface {
 
@@ -32,29 +34,36 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
    */
   public function loadUserByOAuthUserResponse(UserResponseInterface $response)
   {
-      var_dump(get_class_methods($response));
-
+      //user passes through here if he is authenticated with oauth
       $user = $this->em->getRepository('BaazaarUserBundle:User')->findOneBy(array('email' => $response->getEmail()));
 
       if(!empty($user)){
-        //load and authenticate this user
-      } else{
+          //update facebook info when user was first registered by the normal flow
+          if(empty($user->getFacebookId())) {
+            $user->setFacebookId($response->getUsername());
+            $user->setFacebookAccessToken($response->getAccessToken());
 
+            $this->em->merge($user);
+            $this->em->flush();
+          }
+
+      } else{
         //create new user base on oauth credentials
-        var_dump($response->getUsername());
-        var_dump($response->getNickname());
-        var_dump($response->getFirstName());
-        var_dump($response->getLastName());
-        var_dump($response->getEmail());
+        $new_user = new User();
+        $new_user->setUsername($response->getNickname());
+        $new_user->setEmail($response->getEmail());
+        $new_user->setFacebookId($response->getUsername());
+        $new_user->setFacebookAccessToken($response->getAccessToken());
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+
+        $user = $new_user;
       }
 
-    die();
+      return $user;
 
-
-
-      $username = $response->getUsername(); //unique identifier
-
-      return $this->loadUserByUsername($response->getNickname());
   }
 
   /**

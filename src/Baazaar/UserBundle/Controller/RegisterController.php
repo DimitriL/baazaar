@@ -14,14 +14,14 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 
 class RegisterController extends Controller implements ContainerAwareInterface{
-    
+
     protected $container;
-    
+
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
-    
+
     /**
      * Register action
      * @param Request $request
@@ -29,25 +29,25 @@ class RegisterController extends Controller implements ContainerAwareInterface{
      */
     public function registerAction(Request $request) {
         $user = new User();
-        $form = $this->createForm(new UserType(), $user);
-                
-        
+        $form = $this->createForm(UserType::Class, $user);
+
+
         $form->handleRequest($request);
         //on a GET request, $form->isSubmitted() returns false.
         if($form->isValid() && $form->isSubmitted()) {
 
-           $this->createNewUser($user);           
+           $this->createNewUser($user);
            $this->authenticateUser($user);
-           
+
             //add flash notice
             return $this->redirect($this->generateUrl('baazaar_baazaar_homepage')); //redirect to homepage
-        }       
-        
+        }
+
         return $this->render('BaazaarUserBundle:Security:register.html.twig', array(
             'form' => $form->createView()
         ));
     }
-    
+
     /**
      * Function to handle the new user routine
      * @param type $user
@@ -59,13 +59,13 @@ class RegisterController extends Controller implements ContainerAwareInterface{
         $em->persist($user);
         $em->flush();
     }
-    
+
     private function authenticateUser(User $user) {
         $proveiderKey = 'secured_area';
         $token = new UsernamePasswordToken($user, null, $proveiderKey, $user->getRoles());
         $this->getSecurityContext()->setToken($token);
     }
-    
+
     /**
      * TODO: => put this in helper class
      */
@@ -73,6 +73,6 @@ class RegisterController extends Controller implements ContainerAwareInterface{
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
         return $encoder->encodePassword($plainPassword, $user->getSalt());
     }
-    
-    
+
+
 }
