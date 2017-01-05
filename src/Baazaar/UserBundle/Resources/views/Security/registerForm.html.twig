@@ -1,13 +1,57 @@
-<form action="{{ path('baazaar_user_register' ) }}" method="post" class="register" >
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first, {
-        label: 'Password'}) }}
-    {{ form_row(form.plainPassword.second, {
-        label: 'Repeat Password'}) }}
+{% block body %}
+<div class="row">
+     <div class="medium-6 columns small-centered">
+      {% for flashMessage in app.session.flashbag.get('notice-login') %}
+          <div class="flash-notice">
+              {{ flashMessage }}
+          </div>
+      {% endfor %}
+          <div class="block clearfix login">
+             <div class="block--header">
+                 Registreer
+             </div>
+             <div class="block--content ">
+                 <div class="row ">
+                   <div class="medium-10 columns small-centered">
+                     <form action="{{ path('baazaar_user_register' ) }}" method="post" class="register" >
+                         {{ form_row(form.username, {
+                             label: 'Gebruikersnaam'}) }}
+                         {{ form_row(form.email, {
+                             label: 'E-mailadres'}) }}
+                         {{ form_row(form.plainPassword.first, {
+                             label: 'Wachtwoord'}) }}
+                         {{ form_row(form.plainPassword.second, {
+                             label: 'Herhaal Wachtwoord'}) }}
 
-    {{form_rest(form)}}
-    <p>
-        <input class="button" type="submit" value="Submit">
-    </p>
-</form>
+                         {{form_rest(form)}}
+                         <p>
+                             <input class="button" type="submit" value="Registreer">
+                         </p>
+                     </form>
+                   </div>
+                 </div>
+
+               <div class="row align-center">
+                 <div class="medium-10 columns small-centered">
+                   <p class="text--divider">
+                       OF
+                   </p>
+                 </div>
+               </div>
+               <div class="row align-center">
+                 <div class="medium-10 columns small-centered">
+                   <p>
+                       <a class="button" href="{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}">
+                         <i class="fi-social-facebook medium"></i>&nbsp;<span class="button--text">Registreer met Facebook</span>
+                       </a>
+                   </p>
+                 </div>
+               </div>
+             </div>
+     <div class="block--footer">
+
+     </div>
+ </div>
+</div>
+
+{% endblock %}

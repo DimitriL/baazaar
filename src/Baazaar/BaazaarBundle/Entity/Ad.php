@@ -63,7 +63,7 @@ class Ad
 
     /**
      * One Product has One Price.
-     * @ORM\OneToOne(targetEntity="Baazaar\BaazaarBundle\Entity\Price")
+     * @ORM\OneToOne(targetEntity="Baazaar\BaazaarBundle\Entity\Price", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="price_id", referencedColumnName="id")
      */
     private $price;
@@ -441,7 +441,14 @@ class Ad
      */
     public function getDeliveryMethod()
     {
-        return $this->delivery_method;
+
+        switch($this->delivery_method){
+            case 'pickup':
+              return 'Ophalen';
+            default:
+              return $this->delivery_method;
+        }
+
     }
 
     /**
@@ -465,7 +472,13 @@ class Ad
      */
     public function getObjectStatus()
     {
-        return $this->object_status;
+
+      switch($this->object_status){
+          case 'used':
+            return 'Gebruikt';
+          default:
+            return $this->object_status;
+      }
     }
 
     /**

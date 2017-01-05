@@ -55,7 +55,10 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
         $new_user->setFacebookId($response->getUsername());
         $new_user->setFacebookAccessToken($response->getAccessToken());
 
-        $this->em->persist($user);
+        $new_user->setPassword($response->getNickname());
+        $new_user->setPlainPassword($response->getNickname());
+
+        $this->em->persist($new_user);
         $this->em->flush();
 
 

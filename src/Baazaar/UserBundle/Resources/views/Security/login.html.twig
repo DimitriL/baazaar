@@ -1,41 +1,67 @@
 {% extends 'BaazaarBaazaarBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        {% for flashMessage in app.session.flashbag.get('notice-login') %}
-            <div class="flash-notice">
-                {{ flashMessage }}
-            </div>
-        {% endfor %}
-        <div class="medium-12 columns">
-            {% if error %}
-                <div>{{ error.message|trans }}</div>
-            {% endif %}
+<div class="row">
+     <div class="medium-6 columns small-centered">
+      {% for flashMessage in app.session.flashbag.get('notice-login') %}
+          <div class="flash-notice">
+              {{ flashMessage }}
+          </div>
+      {% endfor %}
+          <div class="block clearfix login">
+             <div class="block--header">
+                 Login
+             </div>
+             <div class="block--content ">
+                 {% if error %}
+                     <div>{{ error.message|trans }}</div>
+                 {% endif %}
+                 <div class="row ">
+                   <div class="medium-10 columns small-centered">
+                     <form action="{{ path('baazaar_user_login_check') }}" method="post">
+                         <label for="username">Gebruikersnaam:</label>
+                         <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
-            <form action="{{ path('baazaar_user_login_check') }}" method="post">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                         <label for="password">Paswoord:</label>
+                         <input type="password" id="password" name="_password" />
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="_password" />
+                         <button class="button" type="submit">login</button>
+                     </form>
+                   </div>
+                 </div>
 
-                {#
-                    If you want to control the URL the user
-                    is redirected to on success (more details below)
-                    <input type="hidden" name="_target_path" value="/account" />
-                #}
+               <div class="row align-center">
+                 <div class="medium-10 columns small-centered">
+                   <p class="text--divider">
+                       OF
+                   </p>
+                 </div>
+               </div>
+               <div class="row align-center">
+                 <div class="medium-10 columns small-centered">
+                   <p>
+                       <a class="button" href="{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}">
+                         <i class="fi-social-facebook medium"></i>&nbsp;<span class="button--text">Login met Facebook</span>
+                       </a>
+                   </p>
+                 </div>
+               </div>
+             </div>
+             <div class="block--footer">
+               <div class="row align-center">
+                 <div class="medium-10 columns small-centered">
+                   <div class="a-divider a-divider-break">
+                       <h5>Heeft u nog geen account?</h5>
+                   </div>
+                   <a class="button button--default" href="{{ url("baazaar_user_register") }}">
+                      Registreer je hier
+                   </a>
+                 </div>
+               </div>
 
-                <button type="submit">login</button>
-            </form>
 
+             </div>
+ </div>
+</div>
 
-
-
-
-    <p>
-        <a href="{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}">Facebook Connect Button (Dialog)</a>
-    </p>
-
-        </div>
-    </div>
 {% endblock %}

@@ -1,19 +1,28 @@
 <div class="row">
+  <div class="medium-12 columns">
     {{ form_start(form, {'action': path('baazaar_baazaar_ad_bid', {'id' : ad.id}), 'method': 'POST'}) }}
          {{ form_errors(form) }}
-
-         {{ form_rest(form) }}
-         <input type="submit" value="Submit">
+         <div class="row">
+           <div class="medium-9 columns">
+             {{ form_rest(form) }}
+           </div>
+           <div class="medium-3 columns">
+             <input class="button" type="submit" value="Bied">
+           </div>
+         </div>
     {{ form_end(form) }}
+  </div>
 </div>
 <div class="row">
-    <table>
+  <div class="medium-12 columns">
+    <table class="table table--bids">
       {% for bid in ad.bids %}
           <tr>
-            <td>{{ bid.createdAt|date('d M Y - H:i') }}</td>
+            <td>{{ bid.createdAt|date('d M Y') }}</td>
             <td>€ {{ bid.amount }}</td>
             <td>{{ bid.user.username }}</td>
           </tr>
       {% endfor %}
     </table>
+  </div>
 </div>

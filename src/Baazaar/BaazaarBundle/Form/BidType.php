@@ -9,7 +9,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BidType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('amount');      
+        $builder->add('amount', null, array(
+          'label' => false,
+          'attr' => array(
+            'placeholder' => 'Bedrag'
+          )
+        ));
     }
 
     public function getName() {

@@ -28,7 +28,9 @@
                                 <a href="#">{{ app.user.username }}</a>
                                 {% include 'BaazaarBaazaarBundle:User:user-menu.html.twig' %}
                               </li>
+                              <li><a href="{{ path('baazaar_user_logout')}}">Logout</a></li>
                             </ul>
+
                           {% else %}
                               <a class="button" href="{{ path('baazaar_user_login') }}">Login</a>
                           {% endif %}

@@ -21,8 +21,16 @@ a:hover{color:#333A56;}
 /*wrapper*/
 .wrapper{padding-top:25px;}
 
+.row.align-center{text-align: center;}
+
 /*search-results*/
 .products--grid .columns{padding-left: 0;padding-right: 0.5rem;}
+
+.products--list ul{list-style-type: none;}
+.bidding--details{border:1px solid #333A56;}
+.bidding--details thead{background-color:#333A56;color:#F7F5E6;}
+.bidding--details thead,
+.bidding--details tbody{font-size:10pt;}
 
 /*categories list*/
 .categories-list ul{list-style-type: none;}
@@ -67,12 +75,21 @@ a:hover{color:#333A56;}
 
 /*ad details block*/
 .ad--details ul{list-style-type: none;margin-left:0;}
-.ad--details ul li i{display: inline-block;width:20px;margin-right: 2px;}
+.ad--details ul li{display:block;padding-left: 30px;bottom: 0px;position: relative;}
+.ad--details ul li i{display: inline-block;width:29px;margin-right: 2px; bottom: -3px; position: absolute;left: 0px;}
+
+
+.table--bids{font-size:10pt;}
 
 /*social buttons*/
 .social-buttons ul{list-style-type: none;margin:0;padding:0;margin-top: -15px;}
 .social-buttons ul li{float:left;margin-right: 15px;}
 .social-buttons i{color:#52658F;}
+
+
+/*login block*/
+.login .button{width:100%;}
+.text--divider{font-weight: bold;font-size: 14pt;}
 
 /*actions block*/
 .actions ul{list-style-type: none;margin-left:0;}
@@ -85,7 +102,25 @@ i.medium{font-size:16pt;}
 .button{background-color: #52658F;}
 .button i{float:left;}
 .button .button--text{    margin-top: 3px;    display: inline-block;    font-weight: bold;}
+.button.button--default{background: #e7e9ec;
+  padding:10px;
+    border-color: #adb1b8 #a2a6ac #8d9096;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none!important;
+    vertical-align: middle;}
+.button.button--default{color:black;}
 
+.a-box .a-divider.a-divider-break,
+.a-color-base-background .a-divider.a-divider-break,
+.a-divider.a-divider-break {text-align: center; position: relative; top: 2px; padding-top: 1px; margin-bottom: 14px; line-height: 0;}
+.a-divider.a-divider-break:after { content: ""; width: 100%; background-color: transparent; display: block; height: 1px;border-top: 1px solid #52658F; position: absolute; top: 50%; margin-top: -1px; z-index: 1;}
+.a-box .a-divider.a-divider-break h5,
+.a-color-base-background .a-divider.a-divider-break h5,
+.a-divider.a-divider-break h5 { line-height: 1; font-size: 12px; color: #52658F;font-weight: 400;z-index: 2;position: relative;display: inline-block;background-color: #fff;padding: 0 8px 0 7px;}
 
 .footer{background-color:#52658F;padding:10px 25px 10px 25px;}
 .footer-first{margin-top:50px;}

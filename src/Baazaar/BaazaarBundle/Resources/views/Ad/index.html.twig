@@ -34,16 +34,16 @@
   <div class="row">
     <div class="medium-6 large-6 columns ad--details">
       <h3>{{ ad.title }}</h3>
-      <p>{{ ad.body }}</P>
+      <p>{{ ad.body }}</p>
         <ul>
-            <li><i class="fi-euro medium"></i>&nbsp;35</li>
+            <li><i class="fi-euro medium"></i>&nbsp;{{ ad.price.amount }}</li>
             <li><i class="fi-marker medium"></i>&nbsp;Antwerpen</li>
             {% for category  in ad.categories %}
                   <li><i class="fi-filter medium"></i>&nbsp;{{category.title}}</li>
             {% endfor %}
 
-            <li><i class="fi-check medium"></i>&nbsp;Gebruikt (staat van het object)</li>
-            <li><i class="fi-arrows-in medium"></i>&nbsp;Enkel ophalen</li>
+            <li><i class="fi-check medium"></i>&nbsp;{{ ad.objectStatus }} (staat van het object)</li>
+            <li><i class="fi-arrows-in medium"></i>&nbsp;{{ ad.deliveryMethod }}</li>
             <li></li>
         </ul>
 
