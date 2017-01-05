@@ -87,6 +87,11 @@ i.medium{font-size:16pt;}
 .button .button--text{    margin-top: 3px;    display: inline-block;    font-weight: bold;}
 
 
+.footer{background-color:#52658F;padding:10px 25px 10px 25px;}
+.footer-first{margin-top:50px;}
+.footer-second{text-align: center;border-top:1px solid #F7F5E6;background-color:#333A56;}
+.footer-second,
+.footer-second a{color:#F7F5E6;}
 
 /*------------------------------------------------------------------
 [Mail Page Stylesheet]
