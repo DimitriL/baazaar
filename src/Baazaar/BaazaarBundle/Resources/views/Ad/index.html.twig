@@ -76,7 +76,7 @@
               <ul>
                   <li><a class="button" href="#"><i class="fi-telephone"></i>&nbsp;via telefoon</li></a></li>
                   <li><a class="button" href="#"><i class="fi-mail"></i>&nbsp;via email</a></li>
-                  <li><a class="button" href="#"><i class="fi-comment"></i>&nbsp;via bericht op de website</a></li>
+                  <li><a class="button" href="{{ url('baazaar_message_send', {'ad_id' : ad.id }) }}"><i class="fi-comment"></i>&nbsp;via bericht op de website</a></li>
               </ul>
           </div>
           <div class="block--footer"></div>
@@ -87,14 +87,11 @@
                Een bod plaatsen (vanaf &euro;200)
            </div>
            <div class="block--content ">
-              <input type="text" placeholder="uw bod"/>
-              <table>
-                <tr>
-                  <td>22 december 2016</td>
-                  <td>€ 2.981,00</td>
-                  <td>dimi</td>
-                </tr>
-              </table>
+                 {{ render(controller(
+                    'BaazaarBaazaarBundle:Ad:bid',
+                    { 'id': ad.id }
+                )) }}
+
            </div>
              <div class="block--footer">
 
@@ -107,7 +104,7 @@
           <div class="block--content ">
             <ul class="ad--action_bar">
               <li><a href="{{ url('baazaar_baazaar_ad_favorite', {'id' : ad.id }) }}"><i class="fi-heart medium"></i>als favoriet markeren</a></li>
-              <li><a class=""><i class="fi-alert medium"></i>misbruik rapporteren</a></li>
+              <li><a href="{{ url('baazaar_baazaar_ad_report', {'id' : ad.id }) }}" class=""><i class="fi-alert medium"></i>misbruik rapporteren</a></li>
             </ul>
           </div>
           <div class="block--footer">

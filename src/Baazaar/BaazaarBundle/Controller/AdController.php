@@ -4,12 +4,20 @@ namespace Baazaar\BaazaarBundle\Controller;
 use Baazaar\BaazaarBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Baazaar\BaazaarBundle\Entity\Ad;
+use Baazaar\BaazaarBundle\Entity\Bid;
+use Baazaar\BaazaarBundle\Entity\AdReport;
 use Baazaar\BaazaarBundle\Entity\Category;
 use Baazaar\BaazaarBundle\Form\AdType;
+use Baazaar\BaazaarBundle\Form\BidType;
+use Baazaar\BaazaarBundle\Form\AdReportType;
 use Baazaar\MediaBundle\Entity\File;
 use Baazaar\BaazaarBundle\Entity\Price;
 
 class AdController extends Controller {
+
+  /**
+   * route action to show ad by slug
+   */
     public function indexAction($slug) {
         $em = $this->getDoctrine()->getManager();
         $ad = $em->getRepository('BaazaarBaazaarBundle:Ad')->findOneBy(array('slug' => $slug));
@@ -23,6 +31,75 @@ class AdController extends Controller {
         ));
     }
 
+    /**
+     * route action to add bid to ad
+     */
+    public function bidAction($id, Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+        $ad = $em->getRepository('BaazaarBaazaarBundle:Ad')->findOneBy(array('id' => $id));
+
+        $bid = new Bid();
+        $form = $this->createForm(BidType::class, $bid);
+
+        if ($request->isMethod('POST')) {
+          $form->handleRequest($request);
+
+          if($form->isSubmitted() && $form->isValid()) {
+             $bid->setUser($this->getUser());
+             $bid->setAd($ad);
+
+             //place bid
+             $em->persist($bid);
+             $em->flush();
+
+             //redirect to ad
+             return $this->redirect($this->generateUrl('baazaar_baazaar_ad', array('slug' => $ad->getSlug())));
+          }
+        }
+
+        return $this->render('BaazaarBaazaarBundle:Bid:index.html.twig', array(
+            "ad" => $ad,
+            "form" => $form->createView()
+        ));
+
+    }
+
+    /**
+     * route action to report an ad as inappropriate
+     */
+    public function reportAction($id, Request $request) {
+      $em = $this->getDoctrine()->getManager();
+      $ad = $em->getRepository('BaazaarBaazaarBundle:Ad')->findOneBy(array('id' => $id));
+
+      $adReport = new AdReport();
+      $form = $this->createForm(AdReportType::class, $adReport);
+
+      if ($request->isMethod('POST')) {
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()  ) {
+           $adReport->setReporter($this->getUser());
+           $adReport->setAd($ad);
+
+           //place bid
+           $em->persist($adReport);
+           $em->flush();
+
+           //redirect to ad
+           return $this->redirect($this->generateUrl('baazaar_baazaar_ad', array('slug' => $ad->getSlug())));
+        }
+      }
+
+      return $this->render('BaazaarBaazaarBundle:AdReport:index.html.twig', array(
+          "ad" => $ad,
+          "form" => $form->createView()
+      ));
+    }
+
+    /**
+     * route action to create ad
+     */
     public function createAction(Request $request) {
 
         $this->enforceUserSecurity();
@@ -36,7 +113,7 @@ class AdController extends Controller {
 
             $form->handleRequest($request);
             //on a GET request, $form->isSubmitted() returns false.
-            if($form->isValid() && $form->isSubmitted()) {
+            if($form->isSubmitted() && $form->isValid()  ) {
                 $user = $this->getUser();
 
                 foreach($ad->getUploads() as $upload) {
@@ -65,6 +142,9 @@ class AdController extends Controller {
         ));
     }
 
+    /**
+     * route action to delete ad
+     */
     public function deleteAction($id) {
         $em = $this->getDoctrine()->getManager();
         $ad = $em->getRepository('BaazaarBaazaarBundle:Ad')->find($id);
@@ -83,6 +163,9 @@ class AdController extends Controller {
         return $this->redirect($this->generateUrl('baazaar_baazaar_homepage')); //redirect to homepage
     }
 
+    /**
+     * route action to edit ad
+     */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
         $ad = $em->getRepository('BaazaarBaazaarBundle:Ad')->find($id);
@@ -100,6 +183,9 @@ class AdController extends Controller {
         ));
     }
 
+    /**
+     * route action to update ad
+     */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $ad = $em->getRepository('BaazaarBaazaarBundle:Ad')->find($id);
@@ -117,6 +203,9 @@ class AdController extends Controller {
         return $this->redirect($this->generateUrl('baazaar_baazaar_ad_edit', array('id' => $ad->getId())));
     }
 
+    /**
+     * route action to mark an ad as a favorite
+     */
     public function markFavoriteAction($id) {
       $em = $this->getDoctrine()->getManager();
       $ad = $em->getRepository('BaazaarBaazaarBundle:Ad')->find($id);

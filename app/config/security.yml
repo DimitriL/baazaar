@@ -8,6 +8,8 @@ security:
     providers:
         our_database_users:
             entity:   { class: BaazaarUserBundle:User }
+        custom_hwi_provider:
+            id: baazaar_user.oath_user_provider
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -20,6 +22,13 @@ security:
         secured_area:
             #pattern to match to call login form
             anonymous: ~
+            oauth:
+                resource_owners:
+                    facebook: /user/login/check-facebook
+                login_path:        /user/login
+                failure_path:      /user/login
+                oauth_user_provider:
+                    service: baazaar_user.oath_user_provider
             http_basic: ~
             form_login:
                 login_path: /user/login

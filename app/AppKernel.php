@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Baazaar\MessageBundle\BaazaarMessageBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new FOS\MessageBundle\FOSMessageBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
         ];
 

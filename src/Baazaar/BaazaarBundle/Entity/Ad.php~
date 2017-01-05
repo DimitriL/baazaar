@@ -107,6 +107,10 @@ class Ad
      */
     protected $ad_reports;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Baazaar\MessageBundle\Entity\Thread", mappedBy="ad")
+     */
+    protected $threads;
 
     private $categoriesList;
     private $uploads;
@@ -116,6 +120,7 @@ class Ad
         $this->categories = new ArrayCollection();
         $this->bids = new ArrayCollection();
         $this->ad_reports = new ArrayCollection();
+        $this->threads = new ArrayCollection();
 
         //uploads needs to be an array
         $this->uploads = Array();

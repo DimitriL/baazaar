@@ -44,6 +44,14 @@ class Thread extends BaseThread
     protected $metadata;
 
     /**
+     * @ORM\ManyToOne(
+     *          targetEntity="Baazaar\BaazaarBundle\Entity\Ad",
+     *          inversedBy="threads")
+     */
+    protected $ad;
+
+
+    /**
      * Remove message
      *
      * @param \Baazaar\MessageBundle\Entity\Message $message
@@ -85,5 +93,29 @@ class Thread extends BaseThread
     public function getMetadata()
     {
         return $this->metadata;
+    }
+
+    /**
+     * Set ad
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Ad $ad
+     *
+     * @return Thread
+     */
+    public function setAd(\Baazaar\BaazaarBundle\Entity\Ad $ad = null)
+    {
+        $this->ad = $ad;
+
+        return $this;
+    }
+
+    /**
+     * Get ad
+     *
+     * @return \Baazaar\BaazaarBundle\Entity\Ad
+     */
+    public function getAd()
+    {
+        return $this->ad;
     }
 }

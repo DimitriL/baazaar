@@ -1,3 +1,15 @@
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /connect
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login
+
 baazaar_media:
     resource: "@BaazaarMediaBundle/Resources/config/routing.yml"
     prefix:   /
@@ -9,7 +21,11 @@ baazaar_user:
 baazaar_baazaar:
     resource: "@BaazaarBaazaarBundle/Resources/config/routing.yml"
     prefix:   /
-    
+
+baazaar_message:
+    resource: "@BaazaarMessageBundle/Resources/config/routing.yml"
+    prefix:   /
+
 fos_message:
     resource: "@FOSMessageBundle/Resources/config/routing.xml"
     prefix: /optional_routing_prefix

@@ -22,6 +22,12 @@ baazaar_baazaar_ad_delete:
 baazaar_baazaar_ad_update:
     path: /ad/{id}/update
     defaults: { _controller: BaazaarBaazaarBundle:Ad:update }
+baazaar_baazaar_ad_bid:
+        path: /ad/{id}/bid
+        defaults: { _controller: BaazaarBaazaarBundle:Ad:bid }
+baazaar_baazaar_ad_report:
+        path: /ad/{id}/report
+        defaults: { _controller: BaazaarBaazaarBundle:Ad:report }
 baazaar_baazaar_ad:
     path: /ad/{slug}
     defaults: { _controller: BaazaarBaazaarBundle:Ad:index }
@@ -41,6 +47,9 @@ baazaar_baazaar_user_ads:
 baazaar_baazaar_user_inbox:
       path: /user/{user_id}/inbox
       defaults: { _controller: BaazaarBaazaarBundle:User:inbox }
+baazaar_baazaar_user_inbox_thread:
+      path: /user/{user_id}/inbox/thread/{threadId}
+      defaults: { _controller: BaazaarBaazaarBundle:User:inboxThread }
 baazaar_baazaar_user_favorites:
       path: /user/{user_id}/favorieten
       defaults: { _controller: BaazaarBaazaarBundle:User:favorites }
@@ -50,3 +59,7 @@ baazaar_baazaar_user_bids:
 baazaar_baazaar_user_settings:
       path: /user/{user_id}/settings
       defaults: { _controller: BaazaarBaazaarBundle:User:settings }
+
+baazaar_baazaar_search:
+      path: /search/{keyword}
+      defaults: { _controller: BaazaarBaazaarBundle:Search:search }

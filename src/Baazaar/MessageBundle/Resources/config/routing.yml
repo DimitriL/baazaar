@@ -1,0 +1,3 @@
+baazaar_message_send:
+    path:     /message/send/{ad_id}
+    defaults: { _controller: BaazaarMessageBundle:Message:send }

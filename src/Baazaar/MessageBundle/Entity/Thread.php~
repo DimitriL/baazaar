@@ -42,4 +42,56 @@ class Thread extends BaseThread
      * @var ThreadMetadata[]|Collection
      */
     protected $metadata;
+
+    /**
+     * @ORM\ManyToOne(
+     *          targetEntity="Baazaar\BaazaarBundle\Entity\Ad",
+     *          inversedBy="threads")
+     */
+    protected $ad;
+
+
+    /**
+     * Remove message
+     *
+     * @param \Baazaar\MessageBundle\Entity\Message $message
+     */
+    public function removeMessage(\Baazaar\MessageBundle\Entity\Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Add metadatum
+     *
+     * @param \Baazaar\MessageBundle\Entity\ThreadMetadata $metadatum
+     *
+     * @return Thread
+     */
+    public function addMetadatum(\Baazaar\MessageBundle\Entity\ThreadMetadata $metadatum)
+    {
+        $this->metadata[] = $metadatum;
+
+        return $this;
+    }
+
+    /**
+     * Remove metadatum
+     *
+     * @param \Baazaar\MessageBundle\Entity\ThreadMetadata $metadatum
+     */
+    public function removeMetadatum(\Baazaar\MessageBundle\Entity\ThreadMetadata $metadatum)
+    {
+        $this->metadata->removeElement($metadatum);
+    }
+
+    /**
+     * Get metadata
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
 }

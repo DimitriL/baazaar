@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\MessageBundle\Model\ParticipantInterface;
+use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
 use Serializable;
 
 /**
@@ -91,7 +92,7 @@ class User implements AdvancedUserInterface, Serializable, ParticipantInterface
     protected $favorite_ads;
 
     /**
-     * @ORM\OneToMany(targetEntity="Baazaar\BaazaarBundle\Entity\AdReport", mappedBy="ad")
+     * @ORM\OneToMany(targetEntity="Baazaar\BaazaarBundle\Entity\AdReport", mappedBy="reporter")
      */
     protected $ad_reports;
 
@@ -115,11 +116,22 @@ class User implements AdvancedUserInterface, Serializable, ParticipantInterface
      */
     protected $reviews;
 
+    /**
+     * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
+     */
+    protected $facebook_id;
+
+    /**
+     * @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true)
+     */
+    protected $facebook_access_token;
+
     public function __construct() {
         $this->ads = new ArrayCollection();
         $this->files = new ArrayCollection();
         $this->favorite_ads = new ArrayCollection();
         $this->ad_reports = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
         $this->setSalt();
         $this->setIsActive(true);
     }
@@ -457,5 +469,39 @@ class User implements AdvancedUserInterface, Serializable, ParticipantInterface
     public function getAdReports()
     {
         return $this->ad_reports;
+    }
+
+    /**
+     * Add review
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Review $review
+     *
+     * @return User
+     */
+    public function addReview(\Baazaar\BaazaarBundle\Entity\Review $review)
+    {
+        $this->reviews[] = $review;
+
+        return $this;
+    }
+
+    /**
+     * Remove review
+     *
+     * @param \Baazaar\BaazaarBundle\Entity\Review $review
+     */
+    public function removeReview(\Baazaar\BaazaarBundle\Entity\Review $review)
+    {
+        $this->reviews->removeElement($review);
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
     }
 }

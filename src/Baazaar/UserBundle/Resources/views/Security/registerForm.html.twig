@@ -1,11 +1,11 @@
-<form action="{{ path('baazaar_user_register' ) }}" method="post" {{ form_enctype(form) }} class="register" >
+<form action="{{ path('baazaar_user_register' ) }}" method="post" class="register" >
     {{ form_row(form.username) }}
     {{ form_row(form.email) }}
     {{ form_row(form.plainPassword.first, {
         label: 'Password'}) }}
     {{ form_row(form.plainPassword.second, {
         label: 'Repeat Password'}) }}
-    
+
     {{form_rest(form)}}
     <p>
         <input class="button" type="submit" value="Submit">
