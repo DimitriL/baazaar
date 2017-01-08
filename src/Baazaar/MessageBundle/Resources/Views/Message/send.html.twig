@@ -10,20 +10,20 @@
       {% endfor %}
           <div class="block clearfix login">
              <div class="block--header">
-                 Rapporteer advertentie
+                 Stuur bericht
              </div>
              <div class="block--content ">
                  <div class="row ">
                    <div class="medium-10 columns small-centered">
                     <p>
-                      U staat op het punt om volgende advertentie te rapporteren: <a href="{{ path('baazaar_baazaar_ad', {'slug' : ad.slug }) }}">{{ ad.title }}</a>
+                      Bericht verzenden naar {{ ad.owner.username }} over het zoekertje <a href="{{ path('baazaar_baazaar_ad', {'slug' : ad.slug }) }}">{{ ad.title }}</a>
                     </p>
-                      {{ form_start(form, {'action': path('baazaar_baazaar_ad_report', {'id' : ad.id}), 'method': 'POST'}) }}
-                           {{ form_errors(form) }}
+                     {{ form_start(form) }}
+                        {{ form_errors(form) }}
 
-                           {{ form_rest(form) }}
-                           <input class="button" type="submit" value="Rapporteren">
-                      {{ form_end(form) }}
+                        {{ form_rest(form) }}
+                        <input class="button" type="submit" value="Verstuur">
+                     {{ form_end(form) }}
                    </div>
                  </div>
              </div>

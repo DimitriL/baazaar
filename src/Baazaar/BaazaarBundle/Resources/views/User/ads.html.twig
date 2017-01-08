@@ -6,13 +6,22 @@
           {% include 'BaazaarBaazaarBundle:User:user-menu.html.twig' %}
       </div>
       <div class="medium-9 columns">
-              <div class="products--grid row">
+        <div class="block">
+          <div class="block--header">
+            Mijn advertenties
+          </div>
+          <div class="block--content">
+              <div class="products--list">
                 {% for ad in ads %}
-                <div class="small-12 medium-6 large-3 columns {% if loop.last %}end {% endif %}">
-                    {% include 'BaazaarBaazaarBundle:Ad:teaser.html.twig' %}
-                </div>
+                  {% include 'BaazaarBaazaarBundle:Ad:teaser-list.html.twig' %}
+                  <hr>
                 {% endfor %}
               </div>
+            </div>
+            <div class="block--footer">
+
+            </div>
+          </div>
       </div>
 </div>
 {% endblock %}

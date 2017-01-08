@@ -1,0 +1,39 @@
+<div class="row product-list">
+  <div class="large-2 columns">
+    {% set firstFile = ad.files|first %}
+    {% if firstFile %}
+      <a href="{{ path('baazaar_baazaar_ad', {'slug' : ad.slug}) }}"> <span> </span><img src="{{asset('uploads/' ~ firstFile.path) }}" alt="product cover" class=" thumbnail"></a>
+    {% else %}
+      <a href="{{ path('baazaar_baazaar_ad', {'slug' : ad.slug}) }}"> <span> </span><img src="http://placehold.it/150x200&text=ad cover" alt="product cover" class=" thumbnail"></a>
+    {% endif %}
+  </div>
+  <div class="large-10 columns">
+    <div class="row">
+      <div class=" large-12 columns">
+        <h5><a href="{{ path('baazaar_baazaar_ad', {'slug' : ad.slug}) }}">{{ ad.title }} </a></h5>
+        <p>{{ ad.body }}</p>
+      </div>
+
+
+      <div class="row">
+        <div class=" large-6 columns">
+              <ul>
+                <li><strong>&euro; </strong>{{ ad.price.amount }}</li>
+                <li><strong><i class="fi-clock"></i>&nbsp;</strong> {{ ad.createdAt|date('d M Y - H:i') }}</li>
+              </ul>
+        </div>
+        <div class=" large-6 columns">
+              <ul>
+                <li><strong><i class="fi-marker"></i>&nbsp; </strong>kapellen, antwerpen</li>
+                <li>
+                  {% set firstCategory = ad.categories|first %}
+                  {% if firstCategory %}
+                      <strong><i class="fi-filter"></i>&nbsp;</strong><a href="{{ url('baazaar_baazaar_category', {'id': firstCategory.id} )}}"> {{firstCategory.title}} </a>
+                  {% endif %}
+                </li>
+              </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>

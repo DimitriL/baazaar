@@ -63,3 +63,5 @@ baazaar_baazaar_user_settings:
 baazaar_baazaar_search:
       path: /search/{keyword}
       defaults: { _controller: BaazaarBaazaarBundle:Search:search }
+      options:
+        expose: true

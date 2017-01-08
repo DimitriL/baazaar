@@ -63,7 +63,7 @@ class RegisterController extends Controller implements ContainerAwareInterface{
     private function authenticateUser(User $user) {
         $proveiderKey = 'secured_area';
         $token = new UsernamePasswordToken($user, null, $proveiderKey, $user->getRoles());
-        $this->getSecurityContext()->setToken($token);
+        $this->get('security.token_storage')->setToken($token);
     }
 
     /**

@@ -20,10 +20,11 @@
                 </div>
 
                 <div class="nav-top--right medium-6 columns">
-                    <ul class="menu align-right">
+                   <ul class="menu align-right">
                       <li>
                           {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                              <ul class="dropdown menu user--menu" data-dropdown-menu>
+                               <li><a href="{{ path( 'baazaar_baazaar_ad_create' )}}" class="button">Plaats een advertentie</a></li>
                               <li>
                                 <a href="#">{{ app.user.username }}</a>
                                 {% include 'BaazaarBaazaarBundle:User:user-menu.html.twig' %}
@@ -32,7 +33,14 @@
                             </ul>
 
                           {% else %}
-                              <a class="button" href="{{ path('baazaar_user_login') }}">Login</a>
+                           <ul class="menu">
+                             <li>
+                              <a href="{{ path( 'baazaar_baazaar_ad_create' )}}" class="button">Plaats een advertentie</a>
+                            </li>
+                            <li>&nbsp;</li>
+                            <li>
+                              <a class="" href="{{ path('baazaar_user_login') }}">Login</a>
+                            </li>
                           {% endif %}
                       </li>
                     </ul>
@@ -46,7 +54,7 @@
                 </ul>
                 <div class="medium-6 columns">
                   <form>
-                    <input type="text" placeholder="zoeken naar product"/>
+                    <input type="text" class="search" name="search_keyword" placeholder="zoeken naar product"/>
                     <!--<input type="submit" />-->
                   </form>
                 </div>
@@ -105,9 +113,10 @@
             <script src="{{ asset('bundles/baazaarbaazaar/js/vendor/jquery.js') }}"></script>
             <script src="{{ asset('bundles/baazaarbaazaar/js/vendor/what-input.js') }}"></script>
             <script src="{{ asset('bundles/baazaarbaazaar/js/vendor/foundation.min.js') }}"></script>
-            <script>
-              $(document).foundation();
-            </script>
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+            <script src="{{ asset('bundles/baazaarbaazaar/js/app.js') }}"></script>
+
         {% endblock %}
     </body>
 </html>
