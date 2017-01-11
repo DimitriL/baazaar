@@ -30,6 +30,7 @@ class CategoryController extends Controller {
      private function getAdsByCategories($categories) {
         $finder = $this->container->get('fos_elastica.finder.search.ads');
 
+        //first filter => category of the categorypage
         $nestedQuery = new \Elastica\Query\Nested();
         $nestedQuery->setPath('categories');
 
@@ -44,17 +45,25 @@ class CategoryController extends Controller {
         $boolQuery = new \Elastica\Query\BoolQuery();
         $boolQuery->addMust($nestedQuery);
 
+        //add selected values from facets
+        $fieldQuery2 = new \Elastica\Query\Terms();
+        $fieldQuery2->setTerms('delivery_method', ['ophalen']);
+
+        //$boolQuery->addMust($fieldQuery2);
         $query = new \Elastica\Query($boolQuery);
 
+        //add facets to query
         $facets = $this->createFacets();
+        foreach($facets as $facet) {$query->addAggregation($facet);}
 
-        foreach($facets as $facet) {
-            $query->addAggregation($facet);
-        }
+        $facetQuery = clone $query;
+        $facetQuery->setSize(0);
 
-        $results = $this->get('fos_elastica.index.search.ads')->search($query);
+        //search straight onto index to get facet results
+        $results = $this->get('fos_elastica.index.search.ads')->search($facetQuery);
+        //doctrine orm wrapper to get objects out of database
         $ads = $finder->find($query);
-        //var_dump($results->getAggregations());die();
+
         return array(
             'ads' => $ads,
             'facets' => $results->getAggregations()
