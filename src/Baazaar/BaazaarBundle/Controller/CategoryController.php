@@ -30,27 +30,21 @@ class CategoryController extends Controller {
      private function getAdsByCategories($categories) {
         $finder = $this->container->get('fos_elastica.finder.search.ads');
 
-        //first filter => category of the categorypage
-        $nestedQuery = new \Elastica\Query\Nested();
-        $nestedQuery->setPath('categories');
+        $filters = array(
+            'categories.id' => array(
+              'type' => 'nested:term',
+              'value' => $categories,
+              'path' => 'categories'
+            ),
+            'delivery_method' => array(
+              'type' => 'term',
+              'value' => ['send']
+            )
+        );
 
-        $fieldQuery = new \Elastica\Query\Terms();
-        $fieldQuery->setTerms('categories.id', $categories);
-
-        $boolQuery2 = new \Elastica\Query\BoolQuery();
-        $boolQuery2->addMust($fieldQuery);
-
-        $nestedQuery->setQuery($boolQuery2);
-
-        $boolQuery = new \Elastica\Query\BoolQuery();
-        $boolQuery->addMust($nestedQuery);
-
-        //add selected values from facets
-        $fieldQuery2 = new \Elastica\Query\Terms();
-        $fieldQuery2->setTerms('delivery_method', ['ophalen']);
-
-        //$boolQuery->addMust($fieldQuery2);
-        $query = new \Elastica\Query($boolQuery);
+        $filterQuery = $this->createFilters($filters);
+        $query = new \Elastica\Query();
+        $query->setQuery($filterQuery);
 
         //add facets to query
         $facets = $this->createFacets();
@@ -68,6 +62,46 @@ class CategoryController extends Controller {
             'ads' => $ads,
             'facets' => $results->getAggregations()
         );
+    }
+
+    public function createFilters($filters) {
+        $boolQuery = new \Elastica\Query\BoolQuery();
+
+
+        foreach($filters as $field_name => $filter) {
+            switch($filter['type']){
+                case 'term':
+                    $termQuery = $this->createTermFilter($field_name,  $filter['value']);
+                    $boolQuery->addMust($termQuery);
+                    break;
+                case 'nested:term':
+                    $nestedQuery = $this->createNestedTermFilter($field_name, $filter['value'], $filter['path']);
+                    $boolQuery->addMust($nestedQuery);
+                  break;
+            }
+        }
+
+        return $boolQuery;
+    }
+
+    private function createNestedTermFilter($field_name, $value, $path){
+
+      $nestedQuery = new \Elastica\Query\Nested();
+      $nestedQuery->setPath($path);
+
+      $termQuery = $this->createTermFilter($field_name, $value);
+
+      $boolQuery2 = new \Elastica\Query\BoolQuery();
+      $boolQuery2->addMust($termQuery);
+
+      $nestedQuery->setQuery($boolQuery2);
+      return $nestedQuery;
+    }
+
+    private function createTermFilter($field_name, $value) {
+      $termQuery = new \Elastica\Query\Terms();
+      $termQuery->setTerms($field_name, $value);
+      return $termQuery;
     }
 
     public function createFacets() {
