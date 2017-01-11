@@ -39,12 +39,33 @@ class CategoryController extends Controller {
             'delivery_method' => array(
               'type' => 'term',
               'value' => ['send']
-            )
+            ),
+            'object_status' => array(
+              'type' => 'term',
+              'value' => ['new']
+            ),
+            'price.price_type' => array(
+              'type' => 'nested:term',
+              'value' => ['consent'],
+              'path' => 'price'
+            ),
+            'price.amount' => array(
+              'type' => 'nested:range',
+              'value' => array(
+                'gte' => 120,
+                'lte' => 300
+              ),
+              'path' => 'price'
+            ),
         );
 
-        $filterQuery = $this->createFilters($filters);
         $query = new \Elastica\Query();
+
+        //add filters to query
+        $filterQuery = $this->createFilters($filters);
         $query->setQuery($filterQuery);
+
+        //todo: add sorting
 
         //add facets to query
         $facets = $this->createFacets();
@@ -67,7 +88,6 @@ class CategoryController extends Controller {
     public function createFilters($filters) {
         $boolQuery = new \Elastica\Query\BoolQuery();
 
-
         foreach($filters as $field_name => $filter) {
             switch($filter['type']){
                 case 'term':
@@ -77,7 +97,11 @@ class CategoryController extends Controller {
                 case 'nested:term':
                     $nestedQuery = $this->createNestedTermFilter($field_name, $filter['value'], $filter['path']);
                     $boolQuery->addMust($nestedQuery);
-                  break;
+                    break;
+                case 'nested:range':
+                    $nestedQuery = $this->createNestedRangeFilter($field_name, $filter['value'], $filter['path']);
+                    $boolQuery->addMust($nestedQuery);
+                    break;
             }
         }
 
@@ -98,10 +122,28 @@ class CategoryController extends Controller {
       return $nestedQuery;
     }
 
+    private function createNestedRangeFilter($field_name, $value, $path) {
+      $nestedQuery = new \Elastica\Query\Nested();
+      $nestedQuery->setPath($path);
+
+      $termQuery = $this->createRangeFilter($field_name, $value);
+
+      $boolQuery2 = new \Elastica\Query\BoolQuery();
+      $boolQuery2->addMust($termQuery);
+
+      $nestedQuery->setQuery($boolQuery2);
+      return $nestedQuery;
+    }
+
     private function createTermFilter($field_name, $value) {
       $termQuery = new \Elastica\Query\Terms();
       $termQuery->setTerms($field_name, $value);
       return $termQuery;
+    }
+
+    private function createRangeFilter($field_name, $value) {
+      $rangeQuery = new \Elastica\Query\Range($field_name, $value);
+      return $rangeQuery;
     }
 
     public function createFacets() {
