@@ -4,6 +4,31 @@
     <div class="row">
         <div class="medium-3 columns">
               {{ render(controller('BaazaarBaazaarBundle:Page:sidebar')) }}
+
+              {% for facetTitle, facet in facets %}
+                <div class="facet">
+                    <h2>{{ facetTitle }}</h2>
+                    <ul>
+                        {% if facet.buckets is defined %}
+                          {% for bucket in facet.buckets %}
+                              <li>{{ bucket.key }} ( {{ bucket.doc_count }} ) </li>
+                          {% endfor %}
+                        {% else %}
+                              {% if facetTitle == 'price_type' %}
+                                  {% set buckets = facet['price.price_type'].buckets %}
+                              {% endif %}
+
+                              {% if facetTitle == 'price_range' %}
+                                  {% set buckets = facet['price.amount'].buckets %}
+                              {% endif %}
+                              
+                              {% for bucket in buckets %}
+                                  <li>{{ bucket.key }} ( {{ bucket.doc_count }} ) </li>
+                              {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+              {% endfor %}
         </div>
         <div class="medium-9 columns">
             <div class="row">

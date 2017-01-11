@@ -13,12 +13,28 @@ fos_elastica:
                         id:
                             type: integer
                         title: ~
+                        object_status:
+                            type: string
+                            fielddata: true
+                        delivery_method:
+                            type: string
+                            fielddata: true
                         categories:
                             type: nested
                             properties :
                               id:
                                 type: integer
                               title: ~
+                        price:
+                            type: nested
+                            properties :
+                              id:
+                                type: integer
+                              price_type:
+                                type: string
+                                fielddata: true
+                              amount:
+                                type: double
                     persistence:
                         driver: orm
                         model: Baazaar\BaazaarBundle\Entity\Ad
@@ -33,6 +49,21 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: Baazaar\BaazaarBundle\Entity\Category
+                        finder: ~
+                        provider: ~
+                        listener: ~
+                price:
+                    mappings:
+                        id:
+                          type: integer
+                        price_type:
+                          type: string
+                          fielddata: true
+                        amount:
+                          type: double
+                    persistence:
+                        driver: orm
+                        model: Baazaar\BaazaarBundle\Entity\Price
                         finder: ~
                         provider: ~
                         listener: ~

@@ -33,14 +33,14 @@ class Price
      *
      * @ORM\Column(name="amount", type="decimal")
      */
-    private $amount;
+    private $amount = 0;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="accept_bidding", type="boolean")
      */
-    private $accept_bidding;
+    private $accept_bidding = false;
 
     /**
      * @var decimal

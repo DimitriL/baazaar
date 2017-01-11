@@ -61,6 +61,7 @@ class PageController extends Controller{
     }
 
     public function sidebarAction() {
+
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('BaazaarBaazaarBundle:Category')->childrenHierarchy(
                 null,
