@@ -101,7 +101,7 @@ class CategoryController extends Controller {
     }
 
     private function parseFilters($filters) {
-        //closure => function for use in its owen scope
+        //closure => function for use in its own scope
         $parseFilterValues = function ($values) {
             $vals = array();
             foreach ($values as $key => $value) {
@@ -122,7 +122,6 @@ class CategoryController extends Controller {
                 case 'price_range':
                       foreach($filter_values as $filter_key => $values) {
                            list($from , $to) = explode('-', $values[0]);
-
                             $parsed_filters[$filter_key] = array(
                                 'type' => 'nested:range',
                                 'range_value' => array(
