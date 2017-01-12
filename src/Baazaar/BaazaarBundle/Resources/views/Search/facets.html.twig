@@ -1,0 +1,8 @@
+<div class="facets">
+  <form method="GET">
+    {% for facetTitle, facet in facets %}
+        {% include 'BaazaarBaazaarBundle:Search:facet.html.twig' %}
+    {% endfor %}
+    <input type="submit"/>
+  </form>
+</div>
