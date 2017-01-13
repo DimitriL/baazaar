@@ -8,7 +8,7 @@ class CategoryController extends Controller {
       //convert id to slug
       public function showAction($id) {
           //add current category
-          $categories = array($id);
+          $categories = array((int)$id);
 
           //add all children
           $em = $this->getDoctrine()->getManager();
@@ -20,7 +20,8 @@ class CategoryController extends Controller {
           $result = $this->getAdsByCategories($categories);
           return $this->render('BaazaarBaazaarBundle:Page:index.html.twig', array(
               'ads' => $result['ads'],
-              'facets' => $result['facets']
+              'facets' => $result['facets'],
+              'filters' => $result['filters']
           ));
       }
 
@@ -30,41 +31,54 @@ class CategoryController extends Controller {
      private function getAdsByCategories($categories) {
         $finder = $this->container->get('fos_elastica.finder.search.ads');
 
-        $filters = array(
+        if(isset($_GET['filter'])){
+          $get_filters = $_GET['filter'];
+          $filters = $this->parseFilters($get_filters);
+        }
+
+        //add category
+        $filters['categories.id'] =  array(
+           'type' => 'nested:term',
+           'value' => $categories,
+           'path' => 'categories'
+        );
+
+
+         /*$filters = array(
             'categories.id' => array(
               'type' => 'nested:term',
               'value' => $categories,
               'path' => 'categories'
             ),
-            /*'delivery_method' => array(
+            'delivery_method' => array(
               'type' => 'term',
-              'value' => ['ophalen']
+              'value' => ['send']
             ),
             'object_status' => array(
               'type' => 'term',
-              'value' => ['gebruikt']
+              'value' => ['new']
             ),
             'price.price_type' => array(
               'type' => 'nested:term',
-              'value' => ['amount'],
+              'value' => ['consent'],
               'path' => 'price'
             ),
             'price.amount' => array(
               'type' => 'nested:range',
-              'value' => array(
-                'gte' => 0,
-                'lte' => 360
+              'value' => '50.0-150.0',
+              'range_value' => array(
+                'gte' => 50,
+                'lte' => 150
               ),
               'path' => 'price'
-            ),*/
-        );
+            ),
+        );*/
 
         $query = new \Elastica\Query();
 
         //add filters to query
         $filterQuery = $this->createFilters($filters);
         $query->setQuery($filterQuery);
-
         //todo: add sorting
 
         //add facets to query
@@ -78,11 +92,60 @@ class CategoryController extends Controller {
         $results = $this->get('fos_elastica.index.search.ads')->search($facetQuery);
         //doctrine orm wrapper to get objects out of database
         $ads = $finder->find($query);
-
+        var_dump($filters);
         return array(
             'ads' => $ads,
-            'facets' => $results->getAggregations()
+            'facets' => $results->getAggregations(),
+            'filters' => $filters
         );
+    }
+
+    private function parseFilters($filters) {
+        //closure => function for use in its own scope
+        $parseFilterValues = function ($values) {
+            $vals = array();
+            foreach ($values as $key => $value) {
+                $vals[] = $value;
+            }
+            return $vals;
+        };
+
+        $parsed_filters = array();
+        foreach($filters as $filter => $filter_values) {
+            switch($filter) {
+                case 'delivery_method': case 'object_status':
+                      $parsed_filters[$filter] = array(
+                          'type' => 'term',
+                          'value' => $parseFilterValues($filter_values)
+                      );
+                      break;
+                case 'price_range':
+                      foreach($filter_values as $filter_key => $values) {
+                           list($from , $to) = explode('-', $values[0]);
+                            $parsed_filters[$filter_key] = array(
+                                'type' => 'nested:range',
+                                'range_value' => array(
+                                    'gte' => (int)$from,
+                                    'lte' => (int)$to
+                                ),
+                                'value' => $parseFilterValues($values),
+                                'path' => 'price'
+                            );
+                      }
+                      break;
+                 case 'price_type':
+                      foreach($filter_values as $filter_key => $values) {
+                          $parsed_filters[$filter_key] = array(
+                              'type' => 'nested:term',
+                              'value' =>  $parseFilterValues($values),
+                              'path' => 'price'
+                          );
+                      }
+                      break;
+
+            }
+        }
+        return $parsed_filters;
     }
 
     public function createFilters($filters) {
@@ -99,7 +162,7 @@ class CategoryController extends Controller {
                     $boolQuery->addMust($nestedQuery);
                     break;
                 case 'nested:range':
-                    $nestedQuery = $this->createNestedRangeFilter($field_name, $filter['value'], $filter['path']);
+                    $nestedQuery = $this->createNestedRangeFilter($field_name, $filter['range_value'], $filter['path']);
                     $boolQuery->addMust($nestedQuery);
                     break;
             }
