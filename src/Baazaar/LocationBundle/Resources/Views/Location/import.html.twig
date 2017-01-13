@@ -1,0 +1,44 @@
+{% extends 'BaazaarBaazaarBundle::layout.html.twig' %}
+
+{% block body %}
+<div class="row">
+     <div class="medium-6 columns small-centered">
+      {% for flashMessage in app.session.flashbag.get('notice-login') %}
+          <div class="flash-notice">
+              {{ flashMessage }}
+          </div>
+      {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script>
+
+      var start = 2;
+      var limit = 50;
+
+      $(document).ready(function(){
+            syncLocation(start);
+      });
+
+
+      function syncLocation(start) {
+        console.log(start);
+        $.ajax({
+            method: "POST",
+            url: Routing.generate('location_import', {} , true),
+            data: { ajax: true, start: start, limit: 50 }
+        })
+        .success(function( data ) {
+              start = start + 50;
+              syncLocation(start);
+        });
+      }
+
+  </script>
+{% endblock %}

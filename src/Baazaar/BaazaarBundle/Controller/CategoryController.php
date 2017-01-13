@@ -92,7 +92,7 @@ class CategoryController extends Controller {
         $results = $this->get('fos_elastica.index.search.ads')->search($facetQuery);
         //doctrine orm wrapper to get objects out of database
         $ads = $finder->find($query);
-        var_dump($filters);
+        
         return array(
             'ads' => $ads,
             'facets' => $results->getAggregations(),

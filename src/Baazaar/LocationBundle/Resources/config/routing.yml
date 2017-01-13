@@ -1,3 +1,5 @@
 location_import:
   path: /location/import
   defaults: { _controller: BaazaarLocationBundle:Location:import }
+  options:
+    expose: true
