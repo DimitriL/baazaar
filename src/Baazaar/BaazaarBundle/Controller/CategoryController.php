@@ -36,27 +36,27 @@ class CategoryController extends Controller {
               'value' => $categories,
               'path' => 'categories'
             ),
-            'delivery_method' => array(
+            /*'delivery_method' => array(
               'type' => 'term',
-              'value' => ['send']
+              'value' => ['ophalen']
             ),
             'object_status' => array(
               'type' => 'term',
-              'value' => ['new']
+              'value' => ['gebruikt']
             ),
             'price.price_type' => array(
               'type' => 'nested:term',
-              'value' => ['consent'],
+              'value' => ['amount'],
               'path' => 'price'
             ),
             'price.amount' => array(
               'type' => 'nested:range',
               'value' => array(
-                'gte' => 120,
-                'lte' => 300
+                'gte' => 0,
+                'lte' => 360
               ),
               'path' => 'price'
-            ),
+            ),*/
         );
 
         $query = new \Elastica\Query();
