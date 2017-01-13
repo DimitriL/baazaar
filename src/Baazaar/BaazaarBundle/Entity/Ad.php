@@ -112,6 +112,12 @@ class Ad
      */
     protected $threads;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Baazaar\LocationBundle\Entity\Place", inversedBy="ads")
+     * @ORM\JoinColumn(name="location_id", referencedColumnName="id")
+     */
+    protected $location;
+
     private $categoriesList;
     private $uploads;
 
@@ -537,5 +543,29 @@ class Ad
     public function getThreads()
     {
         return $this->threads;
+    }
+
+    /**
+     * Set location
+     *
+     * @param \Baazaar\LocationBundle\Entity\Place $location
+     *
+     * @return Ad
+     */
+    public function setLocation(\Baazaar\LocationBundle\Entity\Place $location = null)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return \Baazaar\LocationBundle\Entity\Place
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 }

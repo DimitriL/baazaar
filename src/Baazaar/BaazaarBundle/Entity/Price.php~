@@ -24,7 +24,7 @@ class Price
     /**
      * @var int
      *
-     * @ORM\Column(name="rating", type="integer")
+     * @ORM\Column(name="price_type", type="string")
      */
     private $price_type;
 
@@ -33,19 +33,19 @@ class Price
      *
      * @ORM\Column(name="amount", type="decimal")
      */
-    private $amount;
+    private $amount = 0;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="accept_bidding", type="boolean")
      */
-    private $accept_bidding;
+    private $accept_bidding = false;
 
     /**
      * @var decimal
      *
-     * @ORM\Column(name="minimum_bidding_amount", type="decimal")
+     * @ORM\Column(name="minimum_bidding_amount", type="decimal", nullable=true))
      */
     private $minimum_bidding_amount;
 

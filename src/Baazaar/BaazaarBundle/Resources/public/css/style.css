@@ -37,6 +37,15 @@ a:hover{color:#333A56;}
 .categories-list > ul{padding:0;margin:0;}
 .categories-list > ul > li > a{ color: black;font-weight:bold;}
 
+.facets{}
+  .facets .facet{margin-top:15px;}
+    .facets .facet ul{list-style-type: none;padding:0;margin:0;}
+      .facets .facet ul li{}
+        .facets .facet ul li input[type="checkbox"]{margin:0;}
+        .facets .facet ul li .facet--filter__count{font-size:10pt;font-style: italic;}
+    .facets .facet h2{font-size:14pt;font-weight: bold;}
+
+
 /*sorting*/
 .sorting{}
   .sorting h2{font-size:14pt;float:left;margin-top:0;padding-top:0;margin-right:50px;}
@@ -127,6 +136,9 @@ i.medium{font-size:16pt;}
 .footer-second{text-align: center;border-top:1px solid #F7F5E6;background-color:#333A56;}
 .footer-second,
 .footer-second a{color:#F7F5E6;}
+
+
+
 
 /*------------------------------------------------------------------
 [Mail Page Stylesheet]

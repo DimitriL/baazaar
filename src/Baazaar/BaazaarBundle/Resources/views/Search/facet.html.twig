@@ -1,5 +1,5 @@
 <div class="facet">
-    <h2 class="facet---title">{{ facetTitle }}</h2>
+    <h2 class="facet--title">{{ facetTitle }}</h2>
     <ul>
         {% if facet.buckets is defined %}
           {% for bucket in facet.buckets %}
@@ -11,7 +11,7 @@
                       name="filter[{{ facetTitle }}][]"
                       value="{{ bucket.key }}"/>
                   <span class="facet--filter__text">{{ bucket.key }}
-                      <span class="facet--filter__count">( {{ bucket.doc_count }} )</span>
+                      <span class="facet--filter__count">({{ bucket.doc_count }})</span>
                   </span>
                 </span>
               </li>
@@ -26,7 +26,7 @@
                             {% if filters[key] is defined and bucket.key in filters[key]['value'] %} checked="checked" {% endif %}
                             {% if bucket.doc_count == 0 %} disabled="disabled" {% endif %} name="filter[{{ facetTitle }}][{{ key }}][]" value="{{ bucket.key }}"/>
                             <span class="facet--filter__text">{{ bucket.key }}
-                            <span class="facet--filter__count">( {{ bucket.doc_count }} )</span>
+                            <span class="facet--filter__count">({{ bucket.doc_count }})</span>
                           </span>
                         </span>
                     </li>

@@ -26,10 +26,12 @@ class AppKernel extends Kernel
             new Baazaar\MediaBundle\BaazaarMediaBundle(),
             new Baazaar\UserBundle\BaazaarUserBundle(),
             new Baazaar\MessageBundle\BaazaarMessageBundle(),
+            new Baazaar\LocationBundle\BaazaarLocationBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new FOS\MessageBundle\FOSMessageBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
 
         ];
 
