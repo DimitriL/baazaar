@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Baazaar\BaazaarBundle\Form\DataTransformer\LocationToIdsTransformer;
 
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
@@ -14,8 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Baazaar\BaazaarBundle\Form\PriceType;
+use Baazaar\LocationBundle\Form\LocationType;
 
 class AdType extends AbstractType {
 
@@ -47,11 +50,17 @@ class AdType extends AbstractType {
           'data_class' => null
         ));
 
+        $builder->add('locations', TextType::class, array(
+          'mapped' => false
+        ));
+
+        $builder->add('location', HiddenType::class, array(
+          'mapped' => false
+        ));
+
         $builder->add('price', PriceType::class, array(
           'data_class' => 'Baazaar\BaazaarBundle\Entity\Price' //this is needed to convert form array to correct object
         ));
-
-
     }
 
     private function getCategories() {

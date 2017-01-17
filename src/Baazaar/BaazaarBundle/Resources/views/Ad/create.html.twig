@@ -43,4 +43,52 @@
     });
   });
   </script>
+
+
+  <script>
+    $(function(){
+
+      var typingTimer;                //timer identifier
+      var doneTypingInterval = 100;  //time in ms, 5 second for example
+      var $input = $('#ad_locations');
+      var $input_value = $('#ad_location');
+
+      //on keyup, start the countdown
+      $input.on('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(getLocations, doneTypingInterval);
+      });
+
+      //on keydown, clear the countdown
+      $input.on('keydown', function () {
+        clearTimeout(typingTimer);
+      });
+
+      function getLocations() {
+        $.ajax({
+          url : "{{ path('baazaar_baazaar_search_location') }}",
+          type: 'GET',
+          data : {
+            keyword: $input.val()
+          },
+          success: function(data) {
+            $('.locations-list').remove();
+            var list = '<ul class="locations-list">';
+            for (loc in data) {
+                list += '<li data="' + data[loc].id + '">' + data[loc].zip + ' - ' + data[loc].name + '</li>';
+            }
+            list += '</ul>'
+            $input.parent().append(list);
+
+            $('.locations-list li').click(function() {
+                $input.val($(this).html());
+                $input_value.val(parseInt($(this).attr('data')));
+                $('.locations-list').remove();
+            });
+
+          }
+        });
+      }
+    });
+</script>
 {% endblock %}

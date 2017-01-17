@@ -113,7 +113,7 @@ class Place
      *
      * @return Place
      */
-    public function addAd(\BaazaarLocationBundle\Entity\Ad $ad)
+    public function addAd(\Baazaar\BaazaarBundle\Entity\Ad $ad)
     {
         $this->ads[] = $ad;
 
@@ -125,7 +125,7 @@ class Place
      *
      * @param \BaazaarLocationBundle\Entity\Ad $ad
      */
-    public function removeAd(\BaazaarLocationBundle\Entity\Ad $ad)
+    public function removeAd(\Baazaar\BaazaarBundle\Entity\Ad $ad)
     {
         $this->ads->removeElement($ad);
     }

@@ -65,3 +65,8 @@ baazaar_baazaar_search:
       defaults: { _controller: BaazaarBaazaarBundle:Search:search }
       options:
         expose: true
+baazaar_baazaar_search_location:
+      path: /search/location/
+      defaults: { _controller: BaazaarBaazaarBundle:Search:searchLocation }
+      options:
+        expose: true

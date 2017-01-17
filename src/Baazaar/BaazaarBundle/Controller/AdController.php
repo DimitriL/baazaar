@@ -128,6 +128,11 @@ class AdController extends Controller {
                 $category = $em->getRepository('BaazaarBaazaarBundle:Category')->find($ad->getCategoriesList());
                 $ad->addCategory($category);
 
+                //set location
+                $postData = $request->request->get('ad');
+                $place = $em->getRepository('BaazaarLocationBundle:Place')->find((int)$postData['location']);
+                $ad->setLocation($place);
+
                 $ad->setOwner($user);
                 $em->persist($ad);
                 $em->flush();

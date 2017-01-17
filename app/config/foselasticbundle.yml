@@ -67,3 +67,20 @@ fos_elastica:
                         finder: ~
                         provider: ~
                         listener: ~
+                place:
+                    mappings:
+                        name:
+                          type: string
+                          fielddata: true
+                        zipcode:
+                          type: nested
+                          properties :
+                            zip:
+                              type: string
+                              fielddata: true
+                    persistence:
+                        driver: orm
+                        model: Baazaar\LocationBundle\Entity\Place
+                        finder: ~
+                        provider: ~
+                        listener: ~
