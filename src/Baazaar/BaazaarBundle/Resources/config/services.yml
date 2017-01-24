@@ -4,3 +4,6 @@ services:
         arguments: [ "@doctrine" ]
         tags:
             - { name: form.type, alias: form_ad }
+  baazaar.elasticSearchHelper:
+        class: Baazaar\BaazaarBundle\Services\ElasticSearchHelper
+        arguments: ['@service_container']

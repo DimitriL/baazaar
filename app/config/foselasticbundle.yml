@@ -35,6 +35,24 @@ fos_elastica:
                                 fielddata: true
                               amount:
                                 type: double
+                        location:
+                            type: nested
+                            properties :
+                              id:
+                                type: integer
+                              zipcode:
+                                type: nested
+                                properties :
+                                  id:
+                                    type: integer
+                                  province:
+                                    type: nested
+                                    properties :
+                                      id:
+                                        type: integer
+                                      name:
+                                        type: string
+                                        index: not_analyzed
                     persistence:
                         driver: orm
                         model: Baazaar\BaazaarBundle\Entity\Ad

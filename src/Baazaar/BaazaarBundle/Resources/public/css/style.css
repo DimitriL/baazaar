@@ -60,10 +60,12 @@ a:hover{color:#333A56;}
   .product__content{}
     .product__content ul{font-size:10pt;list-style-type: none;margin-left:0;}
     .product--timestamp{font-size:10pt;padding:10px 15px;text-align: center;}
-    .product--price , .product--category{float:left;width:48%;text-align: center;}
+    .product--price , .product--category{float:left;text-align: center;}
+    .product--price{width:38%;}
+    .product--category{width:58%;}
      .product--category{font-size: 11pt;padding:10px 10px;text-align:left;}
      .product--price{padding:5px 12px;font-size:16pt;border-right:1px solid #52658F;text-align: right;}
-     .product--location{font-size:10pt;padding:10px 15px;border-bottom:1px solid #52658F;text-align: center;}
+     .product--location{font-size:10pt;padding:10px 15px;border-bottom:1px solid #52658F;text-align: center;min-height: 60px;}
   .product__footer{}
     .product__footer .button{width: 100%; margin-bottom: 0;}
 

@@ -4,13 +4,23 @@
 
 {% block body %}
     <div class="row">
-      {{ form_start(form) }}
-         {{ form_errors(form) }}
+      <div class="medium-6 columns small-centered">
+        <div class="block clearfix login">
+           <div class="block--header">
+               Plaats advertentie
+           </div>
+           <div class="block--content"
+            {{ form_start(form) }}
+               {{ form_errors(form) }}
 
-         {{ form_rest(form) }}
-         <input type="submit" value="Submit">
-      {{ form_end(form) }}
+               {{ form_rest(form) }}
+               <input type="submit" value="Submit">
+            {{ form_end(form) }}
+          </div>
+      <div class="block--footer">
+      </div>
     </div>
+  </div>
 
 
 

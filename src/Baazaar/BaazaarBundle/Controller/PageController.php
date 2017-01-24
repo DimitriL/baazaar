@@ -20,9 +20,17 @@ class PageController extends Controller{
     public function indexAction() {
         //$this->enforceUserSecurity(); //you can also do this through access_controle in security.yml
 
-        $em = $this->getDoctrine()->getManager();
+        //$em = $this->getDoctrine()->getManager();
+        //$ads = $em->getRepository('BaazaarBaazaarBundle:Ad')->getLatestAds();
 
-        $ads = $em->getRepository('BaazaarBaazaarBundle:Ad')->getLatestAds();
+        $ESHelper = $this->get('baazaar.elasticSearchHelper');
+        $result = $ESHelper->getAdsByCategoriesByFilters();
+
+        return $this->render('BaazaarBaazaarBundle:Page:index.html.twig', array(
+            'ads' => $result['ads'],
+            'facets' => $result['facets'],
+            'filters' => $result['filters']
+        ));
 
         return $this->render('BaazaarBaazaarBundle:Page:index.html.twig', array(
             'ads' => $ads
