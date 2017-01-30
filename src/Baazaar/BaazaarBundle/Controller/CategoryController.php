@@ -20,39 +20,87 @@ class CategoryController extends Controller {
           $ESHelper = $this->get('baazaar.elasticSearchHelper');
 
           $result = $ESHelper->getAdsByCategoriesByFilters($categories);
+
           return $this->render('BaazaarBaazaarBundle:Page:index.html.twig', array(
               'ads' => $result['ads'],
               'facets' => $result['facets'],
-              'filters' => $result['filters']
+              'filters' => $result['filters'],
+              'nocategories' => true
           ));
       }
 
 
     public function createCategoriesAction() {
 
-        $em = $this->getDoctrine()->getManager();
-        $playstation = new Category();
-        $playstation->setTitle('Playstation');
-        $em->persist($playstation);
 
-        $playstation1 = new Category();
-        $playstation1->setTitle('Playstation 1');
-        $playstation1->setParent($playstation);
-        $em->persist($playstation1);
+        $categories = array(
+          'Playstation' => array(
+            'Playstation 1',
+            'Playstation 2',
+            'Playstation 3',
+            'Playstation 4',
+            'Playstation Portable',
+            'Playstation Vita'
+          ),
+          'Xbox' => array(
+            'Xbox',
+            'Xbox 360',
+            'Xbox One'
+          ),
+          'Nintendo' => array(
+            'Nintendo Game & Watch',
+            'Nintendo Virtual Boy',
+            'Nintendo Switch',
+            'Nintendo Wii',
+            'Nintendo Wii U',
+            'Nintendo DS',
+            'Nintendo 3DS',
+            'Nintendo Gameboy',
+            'Nintendo Gameboy Color',
+            'Nintendo Gameboy Advance',
+            'NES',
+            'SNES',
+            'Nintendo 64',
+            'Nintendo Gamecube'
+          ),
+          'SEGA' => array(
+            'Sega Master System',
+            'Sega Genesis',
+            'Sega Game Gear',
+            'Sega Nomad',
+            'Sega CD',
+            'Sega Saturn',
+            'Sega Dreamcast'
+          ),
+          'Atari' => array(
+            'Atari 2600',
+            'Atari 5200',
+            'Atari 7800',
+            'Atari Jaguar',
+            'Atari Lynx'
+          ),
+          'Andere' => array()
+        );
 
-        $playstation2 = new Category();
-        $playstation2->setTitle('Playstation 2');
-        $playstation2->setParent($playstation);
-        $em->persist($playstation2);
 
-        $playstation3 = new Category();
-        $playstation3->setTitle('Playstation 3');
-        $playstation3->setParent($playstation);
-        $em->persist($playstation3);
+        foreach($categories as $parent => $children){
+            $em = $this->getDoctrine()->getManager();
+            $cat = new Category();
+            $cat->setTitle($parent);
+            $em->persist($cat);
 
-        $em->flush();
+            foreach($children as $child){
+              $cate = new Category();
+              $cate->setTitle($child);
+              $cate->setParent($cat);
+              $em->persist($cate);
+            }
 
-       var_dump($playstation);
+            $em->flush();
+        }
+
+
+
        die();
 
         return $this->render('BaazaarBaazaarBundle:Page:about.html.twig', array());

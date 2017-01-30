@@ -60,7 +60,6 @@ class PriceType extends AbstractType {
               // It's important here to fetch $event->getForm()->getData(), as
               // $event->getData() will get you the client data (that is, the ID)
               $price_type = $event->getForm()->getData();
-
               $price = new Price();
               $price->setPriceType($price_type);
 

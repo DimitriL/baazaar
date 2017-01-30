@@ -18,13 +18,12 @@ class ElasticSearchHelper {
      */
    public function getAdsByCategoriesByFilters($categories = null) {
       $finder = $this->container->get('fos_elastica.finder.search.ads');
-
+      $filters = array();
       if(isset($_GET['filter'])){
         $get_filters = $_GET['filter'];
         $filters = $this->parseFilters($get_filters);
       }
-
-      $filters = array();
+      
       if(!empty($categories)){
         //add category
         $filters['categories.id'] =  array(
@@ -111,6 +110,15 @@ class ElasticSearchHelper {
                         );
                     }
                     break;
+              case 'category':
+                    foreach($filter_values as $filter_key => $values) {
+                        $parsed_filters[$filter_key] = array(
+                            'type' => 'nested:term',
+                            'value' =>  $parseFilterValues($values),
+                            'path' => 'categories'
+                        );
+                    }
+                    break;
 
           }
       }
@@ -181,6 +189,7 @@ class ElasticSearchHelper {
   public function createFacets() {
 
     $facets = array();
+    $facets['categories'] = $this->createCategoriesFacet();
     $facets['object_status'] = $this->createObjectStatusFacet();
     $facets['delivery_method'] = $this->createDeliveryMethodFacet();
     $facets['price_type'] = $this->createPriceTypeFacet();
@@ -190,6 +199,10 @@ class ElasticSearchHelper {
     return $facets;
 
 
+  }
+
+  private function createCategoriesFacet() {
+      return $this->createNestedAggregation('category', 'categories', array('categories.title' => 'term_agg'), array(), 1);
   }
 
   private function createObjectStatusFacet() {

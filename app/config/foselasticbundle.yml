@@ -24,7 +24,9 @@ fos_elastica:
                             properties :
                               id:
                                 type: integer
-                              title: ~
+                              title:
+                                type: string
+                                index: not_analyzed
                         price:
                             type: nested
                             properties :

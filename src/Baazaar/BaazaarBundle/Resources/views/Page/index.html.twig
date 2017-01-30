@@ -3,7 +3,10 @@
 {% block body %}
     <div class="row">
         <div class="medium-3 columns">
-              {{ render(controller('BaazaarBaazaarBundle:Page:sidebar')) }}
+              {% if nocategories is defined %}
+              {% else %}
+                  {{ render(controller('BaazaarBaazaarBundle:Page:sidebar')) }}
+              {% endif %}
               {% if facets is defined %}
                   {% include 'BaazaarBaazaarBundle:Search:facets.html.twig' %}
               {% endif %}

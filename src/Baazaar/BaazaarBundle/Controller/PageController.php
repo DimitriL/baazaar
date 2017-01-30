@@ -27,8 +27,7 @@ class PageController extends Controller{
         $result = $ESHelper->getAdsByCategoriesByFilters();
 
         return $this->render('BaazaarBaazaarBundle:Page:index.html.twig', array(
-            'ads' => $result['ads'],
-            'facets' => $result['facets'],
+            'ads' => $result['ads'],            
             'filters' => $result['filters']
         ));
 
